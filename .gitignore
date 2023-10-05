@@ -10,6 +10,8 @@ binary/.DS_Store
 src/.DS_Store
 .DS_Store
 
+*.dll
+
 CMakeLists.txt
 
 .idea/
