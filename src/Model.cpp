@@ -76,7 +76,7 @@ void Model::renderModel(unsigned long mode) {
 }
 
 //-----------------------------------
-// Destructor de la clasede la clase 
+// Destructor de la clase
 //-----------------------------------
 Model::~Model() {
   

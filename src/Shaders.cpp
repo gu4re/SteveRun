@@ -69,15 +69,15 @@ unsigned int Shaders::createProgram(unsigned int vShader, unsigned int fShader) 
     int linked;    
     glLinkProgram(program);
     glGetShaderiv(program, GL_COMPILE_STATUS, &linked);
-    if(linked == GL_FALSE) {
-        int logSize;
-        glGetShaderiv(program, GL_INFO_LOG_LENGTH, &logSize);
-        char *logMsg = new char[logSize];
-        glGetShaderInfoLog(program, logSize, NULL, logMsg);
-        std::cout << "Error al enlazar el Shader: " << logMsg;
-        delete[] logMsg;
-        return 0;
-    }
+    // if(linked == GL_FALSE) {
+    //     int logSize;
+    //     glGetShaderiv(program, GL_INFO_LOG_LENGTH, &logSize);
+    //     char *logMsg = new char[logSize];
+    //     glGetShaderInfoLog(program, logSize, NULL, logMsg);
+    //     std::cout << "Error al enlazar el Shader: " << logMsg;
+    //     delete[] logMsg;
+    //     return 0;
+    // }
     
     return program;    
 }
