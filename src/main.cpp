@@ -20,7 +20,7 @@ float mill_rotZ = 0.0;
 double last_timer = 0.0;
 double screw_rotZ_threshold = 0.01; // 10 milliseconds
 
-void drawObject(Model &model, glm::vec3 vec3_color, glm::mat4 projection_matrix,
+void drawObject(Model model, glm::vec3 vec3_color, glm::mat4 projection_matrix,
                 glm::mat4 cam_matrix, glm::mat4 model_matrix){
     // Pass the multiplication of the three matrix through a uniform variable
     shaders.setMat4("uPVM", projection_matrix*cam_matrix*model_matrix);
