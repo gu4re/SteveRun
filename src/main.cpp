@@ -7,18 +7,12 @@
 // Global Shaders
 Shaders shaders;
 // Global Models
-Model triangle;
-Model plane;
-Model cylinder;
+Model sphere;
 // Global viewports
 int width = 500;
 int height = 500;
 // Global variables for animations
-float screw_transZ = 0.0;
-float screw_rotZ = 0.0;
-float mill_rotZ = 0.0;
-double last_timer = 0.0;
-double screw_rotZ_threshold = 0.01; // 10 milliseconds
+
 
 void drawObject(Model &model, glm::vec3 vec3_color, glm::mat4 projection_matrix,
                 glm::mat4 cam_matrix, glm::mat4 model_matrix){
@@ -39,68 +33,11 @@ void drawObject(Model &model, glm::vec3 vec3_color, glm::mat4 projection_matrix,
     model.renderModel(GL_LINE);
 }
 
-void drawBlade(glm::mat4 projection_matrix, glm::mat4 cam_matrix, glm::mat4 model_matrix){
-    // Screw object
-    glm::mat4 triangle_translate_matrix = glm::translate(I, glm::vec3(0, -0.8, 0.0));
-    // Scale object
-    glm::mat4 triangle_scale_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(0.4f, 0.8f, 0.5f));
-    drawObject(triangle, glm::vec3(1.0, 0.0, 0.0),
-               projection_matrix, cam_matrix, model_matrix*triangle_translate_matrix*triangle_scale_matrix);
-}
-
-void drawCylinder(glm::mat4 projection_matrix, glm::mat4 cam_matrix, glm::mat4 model_matrix){
-    // Cylinder object
-    // scale, translate and rotate transformations are possible options inside a model matrix
-    glm::mat4 cylinder_scale_matrix = glm::scale(I, glm::vec3(0.1, 2.0, 0.1));
-    glm::mat4 cylinder_translate_matrix = glm::translate(I, glm::vec3(0, 2, screw_transZ));
-    glm::mat4 cylinder_rotate_matrix = glm::rotate(I, glm::radians(mill_rotZ),
-                                                   glm::vec3(0, 1, 0));
-    drawObject(cylinder, glm::vec3(0.0, 1.0, 0.0),
-               projection_matrix, cam_matrix, model_matrix*cylinder_translate_matrix*cylinder_scale_matrix*cylinder_rotate_matrix);
-}
-
-void drawScrew(glm::mat4 projection_matrix, glm::mat4 cam_matrix, glm::mat4 model_matrix){
-    // Angle of separation
-    float angleSeparation = glm::radians(120.0f);
-
-    // Get current time
-    auto currentTime = glfwGetTime();
-    double deltaTime = currentTime - last_timer;
-    // Check if the threshold is passed
-    if (deltaTime >= screw_rotZ_threshold){
-        last_timer = currentTime;
-        screw_rotZ += 2.0;
-        // Ensuring that the angle is always less than 360º
-        screw_rotZ = fmod(screw_rotZ, 360.0);
-    }
-    glm::mat4 screw_translate_matrix = glm::translate(I,
-                                                      glm::vec3(0.0, 4.0, screw_transZ));
-    glm::mat4 screw_rotate_matrix = glm::rotate(I, glm::radians(screw_rotZ),
-                                                glm::vec3(0, 0, 1));
-    // rotate Y
-    glm::mat4 screw_rotate_matrix_2 = glm::rotate(I, glm::radians(mill_rotZ),
-                                                  glm::vec3(0, 1, 0));
-    glm::mat4 screw_rotate_matrix_master = screw_rotate_matrix_2*screw_rotate_matrix;
-    drawBlade(projection_matrix, cam_matrix, model_matrix*screw_translate_matrix*screw_rotate_matrix_master);
-    for(int i = 0; i < 3; ++i){
-        glm::mat4 blade_Rz90 = glm::rotate(I, angleSeparation * i, glm::vec3(0, 0, 1));
-        drawBlade(projection_matrix, cam_matrix, model_matrix*screw_translate_matrix*screw_rotate_matrix_master*blade_Rz90);
-    }
-}
-
-void drawWindmill(glm::mat4 projection_matrix, glm::mat4 cam_matrix, glm::mat4 model_matrix){
-    /************************* DRAW CYLINDER *************************/
-    drawCylinder(projection_matrix, cam_matrix, I);
-    /************************* DRAW SCREW *************************/
-    drawScrew(projection_matrix, cam_matrix, I);
-}
-
-void drawPlane(glm::mat4 projection_matrix, glm::mat4 cam_matrix, glm::mat4 model_matrix){
-    // Plane object
-    // scale, translate and rotate transformations are possible options inside a model matrix
-    glm::mat4 plane_scale_matrix = glm::scale(I, glm::vec3(5.0, 1.0, 5.0));
-    drawObject(plane, glm::vec3(0.0, 0.0, 1.0),
-               projection_matrix, cam_matrix, model_matrix*plane_scale_matrix);
+void drawSphere(glm::mat4 projection_matrix, glm::mat4 cam_matrix, glm::mat4 model_matrix){
+    // Sphere object
+    glm::mat4 sphere_scale_matrix = glm::scale(I, glm::vec3(6.0, 6.0, 1.0));
+    drawObject(sphere, glm::vec3(0.0, 0.0, 1.0),
+               projection_matrix, cam_matrix, sphere_scale_matrix*model_matrix);
 }
 
 void configScene(){
@@ -114,9 +51,7 @@ void configScene(){
     shaders.initShaders("resources/shaders/vshader.glsl",
                         "resources/shaders/fshader.glsl");
     // Init Models
-    triangle.initModel("resources/models/triangle.obj");
-    plane.initModel("resources/models/plane.obj");
-    cylinder.initModel("resources/models/cylinder.obj");
+    sphere.initModel("resources/models/sphere.obj");
 }
 
 void renderScene(){
@@ -136,10 +71,8 @@ void renderScene(){
     float fplane = 25.0; // far plane
     float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
     glm::mat4 projection_matrix = glm::perspective(glm::radians(fovy), aspectRatio, nplane, fplane);
-    /************************* DRAW PLANE *************************/
-    drawPlane(projection_matrix, cam_matrix, I);
-    /************************* DRAW WINDMILL *************************/
-    drawWindmill(projection_matrix, cam_matrix, I);
+    /************************* DRAW SPHERE *************************/
+    drawSphere(projection_matrix, cam_matrix, I);
 }
 
 void callbackFramebufferSize(GLFWwindow* glfWwindow, int newWidth, int newHeight){
@@ -152,21 +85,7 @@ void callbackFramebufferSize(GLFWwindow* glfWwindow, int newWidth, int newHeight
 
 void callbackKey(GLFWwindow* window, int key, int scancode, int action, int mods){
     switch (key) {
-        case GLFW_KEY_UP:
-            screw_transZ -= 0.1;
-            break;
-        case GLFW_KEY_DOWN:
-            screw_transZ += 0.1;
-            break;
-        case GLFW_KEY_LEFT:
-            mill_rotZ += 5;
-            break;
-        case GLFW_KEY_RIGHT:
-            mill_rotZ -= 5;
-            break;
-        default: // Reset the screw when we press any key
-            screw_transZ = 0.0;
-            mill_rotZ = 0.0;
+
     }
 }
 
