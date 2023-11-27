@@ -14,4 +14,6 @@ src/.DS_Store
 
 CMakeLists.txt
 
+.github/
+
 .idea/
