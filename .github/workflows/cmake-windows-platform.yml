@@ -26,6 +26,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Print Machine Architecture (Windows)
+      run: |
+        Write-Host "Machine Architecture: $env:PROCESSOR_ARCHITECTURE"
+        Write-Host "Machine Architecture (64-bit or 32-bit): $env:PROCESSOR_ARCHITEW6432"
+
+
     - name: Install Chocolatey
       run: |
         Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
