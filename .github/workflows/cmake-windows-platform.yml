@@ -28,7 +28,6 @@ jobs:
 
     - name: Use Custom MinGW
       run: |
-        # Set the PATH to include the custom MinGW folder
         echo "Adding custom MinGW to PATH"
         $env:PATH = ""
         $env:PATH = "${{github.workspace}}\compiler\MinGW\bin;$env:PATH"
