@@ -18,6 +18,12 @@ jobs:
     # You can convert this to a matrix build if you need cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: windows-latest
+    env:
+      GLEW_PATH: libraries/glew
+      GLFW_PATH: libraries/glfw
+      GLM_PATH: libraries/glm
+      ASSIMP_PATH: libraries/assimp
+      FREEIMAGE_PATH: libraries/freeimage
 
     steps:
     - uses: actions/checkout@v3
