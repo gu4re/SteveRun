@@ -26,13 +26,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install Chocolatey
+    - name: Use Custom MinGW
       run: |
-        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-        
-    - name: Install MINGW
-      run: |
-        choco install mingw
+        # Set the PATH to include the custom MinGW folder
+        echo "Adding custom MinGW to PATH"
+        echo "::add-path::$(Agent.BuildDirectory)\\s\\compiler\\MinGW\\bin;$PATH"
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
