@@ -5,6 +5,8 @@ set(CODE_PATH src)
 
 set(CMAKE_CXX_STANDARD 14)
 set(EXECUTABLE_OUTPUT_PATH ../binary)
+set(CMAKE_C_COMPILER "${{github.workspace}}\compiler\MinGW\bin\gcc")
+set(CMAKE_CXX_COMPILER "${{github.workspace}}\compiler\MinGW\bin\g++")
 
 project(${PROJECT_NAME})
 set(GLEW_PATH libraries/glew)
