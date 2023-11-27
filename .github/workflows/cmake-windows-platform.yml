@@ -26,10 +26,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Uninstall default MinGW
-      run: |
-        choco uninstall mingw
-
     - name: Use Custom MinGW
       run: |
         echo "Adding custom MinGW to PATH"
