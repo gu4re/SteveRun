@@ -16,4 +16,6 @@ CMakeLists.txt
 
 .github/
 
+libraries/
+
 .idea/
