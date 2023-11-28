@@ -36,4 +36,5 @@ jobs:
       # Build your program with the given configuration
       run: |
         cd "${{github.workspace}}\build"
-        cmake .. && make
+        cmake .. -G "MinGW Makefiles" -DCMAKE_C_COMPILER=${{ github.workspace }}/compiler/MinGW/bin/gcc.exe -DCMAKE_CXX_COMPILER=${{ github.workspace }}/compiler/MinGW/bin/g++.exe
+        make
