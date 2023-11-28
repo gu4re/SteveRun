@@ -29,8 +29,7 @@ jobs:
     - name: Use Custom MinGW
       run: |
         echo "Adding custom MinGW to PATH"
-        $env:PATH = ""
-        $env:PATH = "${{github.workspace}}\compiler\MinGW\bin;$env:PATH"
+        $env:PATH = "${{github.workspace}}\compiler\MinGW\bin"
         echo $env:PATH
 
     - name: Configure CMake
