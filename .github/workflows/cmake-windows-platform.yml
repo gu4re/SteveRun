@@ -32,14 +32,9 @@ jobs:
         $env:PATH = "${{github.workspace}}\compiler\MinGW\bin"
         echo $env:PATH
 
-    - name: CMake
+    - name: Build
       # Build your program with the given configuration
       run: |
         cd "${{github.workspace}}\build"
         cmake ..
-
-    - name: Make
-      # Build your program with the given configuration
-      run: |
-        cd "${{github.workspace}}\build"
         make
