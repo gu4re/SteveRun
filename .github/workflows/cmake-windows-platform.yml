@@ -36,5 +36,4 @@ jobs:
       # Build your program with the given configuration
       run: |
         cd "${{github.workspace}}\build"
-        cmake ..
-        make
+        cmake .. && make
