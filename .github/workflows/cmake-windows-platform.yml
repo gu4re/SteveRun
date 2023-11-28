@@ -41,4 +41,5 @@ jobs:
     - name: Make
       # Build your program with the given configuration
       run: |
+        cd "${{github.workspace}}\build"
         make
