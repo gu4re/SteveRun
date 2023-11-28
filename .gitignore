@@ -1,7 +1,6 @@
 # Ignoring other files
 build/
 
-*.exe
 binary/CrocodileGame
 
 cmake-build-debug/
