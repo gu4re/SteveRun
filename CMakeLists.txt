@@ -5,6 +5,8 @@ set(CODE_PATH src)
 
 set(CMAKE_CXX_STANDARD 14)
 set(EXECUTABLE_OUTPUT_PATH ../binary)
+set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
+
 
 project(${PROJECT_NAME})
 set(GLEW_PATH libraries/glew)
