@@ -9,15 +9,16 @@ Shaders shaders;
 // Global Models
 Model sphere;
 // Global viewports
-int width = 500;
-int height = 500;
-// Global variables for animations
-
+int width = 700;
+int height = 700;
+bool fullscreen_mode = false;
+// Init Window object
+GLFWwindow *glfWwindow;
 
 void drawObject(Model &model, glm::vec3 vec3_color, glm::mat4 projection_matrix,
-                glm::mat4 cam_matrix, glm::mat4 model_matrix){
+                glm::mat4 cam_matrix, glm::mat4 model_matrix) {
     // Pass the multiplication of the three matrix through a uniform variable
-    shaders.setMat4("uPVM", projection_matrix*cam_matrix*model_matrix);
+    shaders.setMat4("uPVM", projection_matrix * cam_matrix * model_matrix);
     // Enable the offset for the first representation allows us to avoid z-fighting
     glEnable(GL_POLYGON_OFFSET_FILL);
     // Setting up the color of the model before saving it
@@ -32,7 +33,7 @@ void drawObject(Model &model, glm::vec3 vec3_color, glm::mat4 projection_matrix,
     shaders.setVec3("uColor", glm::vec3(1.0, 1.0, 1.0));
     model.renderModel(GL_LINE);
 }
-
+               
 void drawSphere(glm::mat4 projection_matrix, glm::mat4 cam_matrix, glm::mat4 model_matrix){
     // Sphere object
     glm::mat4 sphere_scale_matrix = glm::scale(I, glm::vec3(6.0, 6.0, 1.0));
@@ -40,7 +41,25 @@ void drawSphere(glm::mat4 projection_matrix, glm::mat4 cam_matrix, glm::mat4 mod
                projection_matrix, cam_matrix, sphere_scale_matrix*model_matrix);
 }
 
-void configScene(){
+void screenMode() {
+    // Gets the current monitor where is running the game
+    GLFWmonitor *primaryMonitor = glfwGetPrimaryMonitor();
+    int xpos, ypos;
+    glfwGetWindowPos(glfWwindow, &xpos, &ypos);
+    // Gets the video mode to obtain screen specs
+    const GLFWvidmode *videoMode = glfwGetVideoMode(primaryMonitor);
+    if (fullscreen_mode) {
+        glfwSetWindowMonitor(glfWwindow, primaryMonitor, 0, 0,
+                             videoMode->width, videoMode->height, videoMode->refreshRate);
+    } else {
+        std::cout << videoMode->width << std::endl;
+        glfwSetWindowMonitor(glfWwindow, nullptr, (videoMode->width / 2) - 700,
+                             (videoMode->height / 2) - 700,700, 700,
+                             videoMode->refreshRate);
+    }
+}
+
+void configScene() {
     // Enable depth buffer and establish an offset of the polygon
     // the offset can be used by any model
     glEnable(GL_DEPTH_TEST);
@@ -54,16 +73,16 @@ void configScene(){
     sphere.initModel("resources/models/sphere.obj");
 }
 
-void renderScene(){
+void renderScene() {
     // Clean the color buffer to the color mentioned below and restore the depth buffer to default
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // Use the shaders from a local directory
     shaders.useShaders();
     /************************* CAM MATRIX *************************/
-    glm::vec3 eye (0.0, 3.0, 10.0);
-    glm::vec3 center (0.0, 0.0, 0.0);
-    glm::vec3 up (0.0, 1.0, 0.0);
+    glm::vec3 eye(0.0, 3.0, 10.0);
+    glm::vec3 center(0.0, 0.0, 0.0);
+    glm::vec3 up(0.0, 1.0, 0.0);
     glm::mat4 cam_matrix = glm::lookAt(eye, center, up);
     /************************* PROJECTION MATRIX *************************/
     float fovy = 60.0; // grades
@@ -75,7 +94,7 @@ void renderScene(){
     drawSphere(projection_matrix, cam_matrix, I);
 }
 
-void callbackFramebufferSize(GLFWwindow* glfWwindow, int newWidth, int newHeight){
+void callbackFramebufferSize(GLFWwindow *glfWwindow, int newWidth, int newHeight) {
     // Adjust viewport to the new window's size to adjust object to the whole screen
     glViewport(0, 0, newWidth, newHeight);
     // Update the width and height to the new values
@@ -83,18 +102,22 @@ void callbackFramebufferSize(GLFWwindow* glfWwindow, int newWidth, int newHeight
     height = newHeight;
 }
 
-void callbackKey(GLFWwindow* window, int key, int scancode, int action, int mods){
+void callbackKey(GLFWwindow *window, int key, int scancode, int action, int mods) {
     switch (key) {
-
+        case GLFW_KEY_F:
+            if (action == GLFW_PRESS) {
+                fullscreen_mode ? fullscreen_mode = false : fullscreen_mode = true;
+                screenMode();
+            }
+            break;
+        default:
     }
 }
 
 int main() {
 
     /************************* OBJECTS *************************/
-    // Init Window object
-    GLFWwindow* glfWwindow;
-
+  
     /************************* GLFW LIBRARY *************************/
     // Init GLFW library
     if (!glfwInit()) {
@@ -111,7 +134,7 @@ int main() {
     // Create a window using GLFW
     glfWwindow = glfwCreateWindow(width, height, "CrocodileGame", nullptr, nullptr);
     // Checking if the creation of the window failed or not
-    if (!glfWwindow){
+    if (!glfWwindow) {
         glfwTerminate();
         std::cerr << "GLFWwindow failed to init";
         return -1;
@@ -125,7 +148,7 @@ int main() {
     /************************* GLEW LIBRARY *************************/
     // Init GLEW library showing support through console
     GLenum err = glewInit();
-    if (err != GLEW_OK){
+    if (err != GLEW_OK) {
         std::cerr << "Error: " << glewGetErrorString(err);
         return -1;
     }
@@ -140,7 +163,7 @@ int main() {
 
     /************************* MAIN LOOP *************************/
     // Loop until the user closes the window
-    while (!glfwWindowShouldClose(glfWwindow)){
+    while (!glfwWindowShouldClose(glfWwindow)) {
         // Render Scene
         renderScene();
         // Swap buffers to change between frames
