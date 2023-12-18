@@ -8,6 +8,7 @@
 Shaders shaders;
 // Global Models
 Model sphere;
+Model cube;
 // Global viewports
 int width = 700;
 int height = 700;
@@ -71,6 +72,8 @@ void configScene() {
                         "resources/shaders/fshader.glsl");
     // Init Models
     sphere.initModel("resources/models/sphere.obj");
+    cube.initModel("resources/models/cube.obj");
+
 }
 
 void renderScene() {
@@ -80,9 +83,9 @@ void renderScene() {
     // Use the shaders from a local directory
     shaders.useShaders();
     /************************* CAM MATRIX *************************/
-    glm::vec3 eye(0.0, 3.0, 10.0);
-    glm::vec3 center(0.0, 0.0, 0.0);
-    glm::vec3 up(0.0, 1.0, 0.0);
+    glm::vec3 eye(0.0, 5.0, 2.0); // Cam position
+    glm::vec3 center(0.0, 5.0, 0.0); // Where we look
+    glm::vec3 up(0.0, 1.0, 0.0); // normal vector
     glm::mat4 cam_matrix = glm::lookAt(eye, center, up);
     /************************* PROJECTION MATRIX *************************/
     float fovy = 60.0; // grades
@@ -92,6 +95,8 @@ void renderScene() {
     glm::mat4 projection_matrix = glm::perspective(glm::radians(fovy), aspectRatio, nplane, fplane);
     /************************* DRAW SPHERE *************************/
     drawSphere(projection_matrix, cam_matrix, I);
+    drawObject(cube, glm::vec3(1.0, 0.0, 0.0), projection_matrix, cam_matrix,
+               glm::translate(I, glm::vec3(-1.0, 5.0, 0.0))*glm::scale(I, glm::vec3(0.5)));
 }
 
 void callbackFramebufferSize(GLFWwindow *glfWwindow, int newWidth, int newHeight) {
@@ -111,6 +116,7 @@ void callbackKey(GLFWwindow *window, int key, int scancode, int action, int mods
             }
             break;
         default:
+            break;
     }
 }
 
