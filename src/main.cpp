@@ -63,6 +63,7 @@ void funCursorPos      (GLFWwindow* window, double xpos, double ypos);
 
 // Animaciones
    float rotP = 0.0;
+   float jump = 0.0;
 
 // Movimiento de camara
    float fovy   = 60.0;
@@ -282,9 +283,10 @@ void renderScene() {
  // Dibujamos la escena
 
     glm::mat4 T = glm::translate(I, glm::vec3(0.0, 9, 0.0));
+    glm::mat4 Salto = glm::translate(I, glm::vec3(0.0, jump, 0.0));
     glm::mat4 S1 = glm::scale(I, glm::vec3(0.5));
     glm::mat4 R1 = glm::rotate(I, glm::radians(rotP), glm::vec3(1,0, 0));
-    drawObjectTex(cube, texRuby, P, V, R1*S1*T);// dibujamos el personaje
+    drawObjectTex(cube, texRuby, P, V, R1*S1*Salto*T);// dibujamos el personaje
 
     glm::mat4 S = glm::scale(I, glm::vec3(2));
     drawObjectTex(sphere, texGold, P, V, S); // dibujamos el planeta
@@ -350,16 +352,13 @@ void funKey(GLFWwindow* window, int key  , int scancode, int action, int mods) {
     switch(key) {
         case GLFW_KEY_UP:    rotP -= 5.0f;   break;
         case GLFW_KEY_DOWN:  rotP += 5.0f;   break;
-        //case GLFW_KEY_LEFT:  rotY -= 5.0f;   break;
-        //case GLFW_KEY_RIGHT: rotY += 5.0f;   break;
-//        case GLFW_KEY_Z:
-//            if(mods==GLFW_MOD_SHIFT) desZ -= desZ > -24.0f ? 0.1f : 0.0f;
-//            else                     desZ += desZ <   5.0f ? 0.1f : 0.0f;
-//            break;
-//        default:
-//            rotX = 0.0f;
-//            rotY = 0.0f;
-//            break;
+        case GLFW_KEY_SPACE:
+            if (action == GLFW_PRESS) {
+                jump = 2.0f;
+            } else {
+                jump = 0.0f;
+            }
+            break;
     }
 
 }
