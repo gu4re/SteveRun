@@ -28,11 +28,11 @@ class Model {
         std::vector<glm::vec2>      textureCoords;
         std::vector<unsigned short> indices;
     
-        unsigned int vao; // Identifier of four pointers below
-        unsigned int vboPositions; // vbo = Vertex Buffer Object
+        unsigned int vao;
+        unsigned int vboPositions;
         unsigned int vboNormals;
         unsigned int vboTextureCoords;
-        unsigned int eboIndices; // eb0 = Element Buffer Object
+        unsigned int eboIndices;
 
 };
 

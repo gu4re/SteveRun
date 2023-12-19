@@ -58,7 +58,7 @@ class Shaders {
                 
     private:
                    
-        unsigned int program; // program identifier
+        unsigned int program;
                 
         unsigned int createShader (unsigned long shader , const char *shaderFile);
         unsigned int createProgram(unsigned int  vShader, unsigned int fShader);
