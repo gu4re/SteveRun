@@ -10,7 +10,7 @@ void renderScene();
 void setLights (glm::mat4 P, glm::mat4 V);
 void drawObjectMat(Model &model, Material &material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawObjectTex(Model &model, Textures &textures, glm::mat4 P, glm::mat4 V, glm::mat4 M);
-void renderEnemy(float posZ, glm::mat4 P, glm::mat4 V);
+void renderEnemy(float angle, glm::mat4 P, glm::mat4 V);
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
 void funKey            (GLFWwindow* window, int key  , int scancode, int action, int mods);
@@ -296,7 +296,7 @@ void renderScene() {
     drawObjectTex(cube, texRuby, P, V, R1*S1*Salto*T);// dibujamos el personaje
 
     //Prueba: dibujar obstáculo/enemigo
-    renderEnemy(9, P, V);
+    renderEnemy(45, P, V);
 
     glm::mat4 S = glm::scale(I, glm::vec3(2));
     drawObjectTex(sphere, texGold, P, V, S); // dibujamos el planeta
@@ -361,18 +361,18 @@ void funKey(GLFWwindow* window, int key  , int scancode, int action, int mods) {
 
     switch(key) {
         case GLFW_KEY_UP:
-            rotP -= 5.0f;
+            rotP += 5.0f;
             //Imprime las coordenadas del cubo
-            std::cout << "Tecla de flecha arriba - Coordenadas del cubo: (" << cubeX << ", " << cubeY << ", " << cubeZ << ")" << std::endl;
+            //std::cout << "Tecla de flecha arriba - Coordenadas del cubo: (" << cubeX << ", " << cubeY << ", " << cubeZ << ")" << std::endl;
             break;
         case GLFW_KEY_DOWN:
-            rotP += 5.0f;
-            std::cout << "Tecla de flecha abajo - Coordenadas del cubo: (" << cubeX << ", " << cubeY << ", " << cubeZ << ")" << std::endl;
+            rotP -= 5.0f;
+            //std::cout << "Tecla de flecha abajo - Coordenadas del cubo: (" << cubeX << ", " << cubeY << ", " << cubeZ << ")" << std::endl;
             break;
         case GLFW_KEY_SPACE:
             if (action == GLFW_PRESS) {
                 jump = 2.0f;
-                std::cout << "Tecla de salto Coordenadas del cubo: (" << cubeX << ", " << cubeY << ", " << cubeZ << ")" << std::endl;
+                //std::cout << "Tecla de salto Coordenadas del cubo: (" << cubeX << ", " << cubeY << ", " << cubeZ << ")" << std::endl;
             } else {
                 jump = 0.0f;
             }
@@ -400,10 +400,10 @@ void funCursorPos(GLFWwindow* window, double xpos, double ypos) {
 
 }
 
-void renderEnemy(float posZ, glm::mat4 P, glm::mat4 V) {
-    glm::mat4 S = glm::scale(I, glm::vec3(0.5));
-    glm::mat4 T = glm::translate(I, glm::vec3(cubeX, cubeY, cubeZ+posZ));
-    glm::mat4 R = glm::rotate(I, glm::radians(posZ * 10), glm::vec3(1,0, 0));
+void renderEnemy(float angle, glm::mat4 P, glm::mat4 V) {
+    glm::mat4 S = glm::scale(I, glm::vec3(0.30));
+    glm::mat4 T = glm::translate(I, glm::vec3(cubeX, cubeY+14.42, cubeZ));
+    glm::mat4 R = glm::rotate(I, glm::radians(angle), glm::vec3(1,0, 0));
 
     drawObjectTex(cube, texRuby, P, V, R*S*T);
 }
