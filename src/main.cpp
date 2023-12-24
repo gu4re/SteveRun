@@ -11,6 +11,8 @@ void setLights (glm::mat4 P, glm::mat4 V);
 void drawObjectMat(Model &model, Material &material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawObjectTex(Model &model, Textures &textures, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void renderEnemy(float angle, glm::mat4 P, glm::mat4 V);
+void funTimer(double seconds, double &t0);
+void reset();
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
 void funKey            (GLFWwindow* window, int key  , int scancode, int action, int mods);
@@ -73,8 +75,11 @@ void funCursorPos      (GLFWwindow* window, double xpos, double ypos);
 
 // Variables globales para las coordenadas del cubo
     float cubeX = 0.0f;
-    float cubeY = 0.0f;
+    float cubeY = 9.0f;
     float cubeZ = 0.0f;
+
+// Variable que indica si el juego está en marcha
+    int gameRunning = 0;
 
 
 int main() {
@@ -88,7 +93,7 @@ int main() {
 
  // Creamos la ventana
     GLFWwindow* window;
-    window = glfwCreateWindow(w, h, "Sesion 7", NULL, NULL);
+    window = glfwCreateWindow(w, h, "CrocodileGame", NULL, NULL);
     if(!window) {
         glfwTerminate();
         return -1;
@@ -113,12 +118,28 @@ int main() {
     glfwSetScrollCallback   (window, funScroll);
     glfwSetCursorPosCallback(window, funCursorPos);
 
- // Entramos en el bucle de renderizado
+    // Entramos en el bucle de renderizado
     configScene();
-    while(!glfwWindowShouldClose(window)) {
+    double t0 = glfwGetTime();
+    double elapsed = 0.0;
+
+    while (!glfwWindowShouldClose(window)) {
+        double t1 = glfwGetTime();
+        double deltaTime = t1 - t0;
+        t0 = t1;
+
         renderScene();
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        // Solo llamamos a funTimer cuando gameRunning es 1
+        if (gameRunning == 1) {
+            elapsed += deltaTime;
+            if (elapsed >= 0.01) {  // Llama a la función funTimer cada 0.01 segundos
+                funTimer(elapsed, t0);
+                elapsed = 0.0;
+            }
+        }
     }
     glfwDestroyWindow(window);
     glfwTerminate();
@@ -289,13 +310,13 @@ void renderScene() {
 
  // Dibujamos la escena
 
-    glm::mat4 T = glm::translate(I, glm::vec3(cubeX, cubeY+9, cubeZ));
-    glm::mat4 Salto = glm::translate(I, glm::vec3(cubeX, cubeY+jump, cubeZ));
+    glm::mat4 T = glm::translate(I, glm::vec3(cubeX, cubeY, cubeZ));
+    glm::mat4 Salto = glm::translate(I, glm::vec3(cubeX, jump, cubeZ));
     glm::mat4 S1 = glm::scale(I, glm::vec3(0.5));
     glm::mat4 R1 = glm::rotate(I, glm::radians(rotP), glm::vec3(1,0, 0));
     drawObjectTex(cube, texRuby, P, V, R1*S1*Salto*T);// dibujamos el personaje
 
-    //Prueba: dibujar obstáculo/enemigo
+    //Dibujamos obstáculo/enemigo
     renderEnemy(45, P, V);
 
     glm::mat4 S = glm::scale(I, glm::vec3(2));
@@ -365,12 +386,20 @@ void funKey(GLFWwindow* window, int key  , int scancode, int action, int mods) {
             //Imprime las coordenadas del cubo
             //std::cout << "Tecla de flecha arriba - Coordenadas del cubo: (" << cubeX << ", " << cubeY << ", " << cubeZ << ")" << std::endl;
             break;
-        case GLFW_KEY_DOWN:
-            rotP -= 5.0f;
-            //std::cout << "Tecla de flecha abajo - Coordenadas del cubo: (" << cubeX << ", " << cubeY << ", " << cubeZ << ")" << std::endl;
+        case GLFW_KEY_R:
+            if (action == GLFW_PRESS) {
+                gameRunning = 0;
+                reset();
+            }
+            break;
+        case GLFW_KEY_S:
+            if (action == GLFW_PRESS) {
+                gameRunning = 0;
+            }
             break;
         case GLFW_KEY_SPACE:
             if (action == GLFW_PRESS) {
+                gameRunning = 1;
                 jump = 2.0f;
                 //std::cout << "Tecla de salto Coordenadas del cubo: (" << cubeX << ", " << cubeY << ", " << cubeZ << ")" << std::endl;
             } else {
@@ -402,8 +431,24 @@ void funCursorPos(GLFWwindow* window, double xpos, double ypos) {
 
 void renderEnemy(float angle, glm::mat4 P, glm::mat4 V) {
     glm::mat4 S = glm::scale(I, glm::vec3(0.30));
-    glm::mat4 T = glm::translate(I, glm::vec3(cubeX, cubeY+14.42, cubeZ));
+    glm::mat4 T = glm::translate(I, glm::vec3(0, 14.42, 0));
     glm::mat4 R = glm::rotate(I, glm::radians(angle), glm::vec3(1,0, 0));
 
     drawObjectTex(cube, texRuby, P, V, R*S*T);
+}
+
+void funTimer(double seconds, double &t0) { //se encarga de la rotacion automatica del personaje
+
+    double t1 = glfwGetTime();
+    if (t1 - t0 > seconds) {
+        rotP += 5.0f;
+        t0 = t1;
+    }
+}
+
+void reset() {
+    cubeX = 0.0;
+    cubeZ = 0.0;
+    cubeY = 9.0;
+    rotP = 0.0;
 }
