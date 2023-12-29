@@ -6,7 +6,7 @@
 #include "Texture.h"
 
 void configScene();
-void renderScene();
+void renderScene(GLFWwindow* window);
 void setLights (glm::mat4 P, glm::mat4 V);
 void drawObjectMat(Model &model, Material &material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawObjectTex(Model &model, Textures &textures, glm::mat4 P, glm::mat4 V, glm::mat4 M);
@@ -81,6 +81,10 @@ void funCursorPos      (GLFWwindow* window, double xpos, double ypos);
 // Variable que indica si el juego está en marcha
     int gameRunning = 0;
 
+// Variable que indica si el personaje está realmente saltando (comrpueba que la tecla espacio no se haya dejado pulsada continuamente)
+    bool isJumping = false;
+
+
 
 int main() {
 
@@ -128,7 +132,7 @@ int main() {
         double deltaTime = t1 - t0;
         t0 = t1;
 
-        renderScene();
+        renderScene(window);
         glfwSwapBuffers(window);
         glfwPollEvents();
 
@@ -280,7 +284,7 @@ void configScene() {
 
 }
 
-void renderScene() {
+void renderScene(GLFWwindow* window) {
 
  // Borramos el buffer de color
     glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -318,6 +322,11 @@ void renderScene() {
 
     //Dibujamos obstáculo/enemigo
     renderEnemy(45, P, V);
+
+    // Comparamos los ángulos de rotación del personaje y el enemigo
+    if (static_cast<int>(rotP) == 45 && !isJumping) {
+        gameRunning = 0;
+    }
 
     glm::mat4 S = glm::scale(I, glm::vec3(2));
     drawObjectTex(sphere, texGold, P, V, S); // dibujamos el planeta
@@ -399,11 +408,16 @@ void funKey(GLFWwindow* window, int key  , int scancode, int action, int mods) {
             break;
         case GLFW_KEY_SPACE:
             if (action == GLFW_PRESS) {
+                if(gameRunning == 0) {
+                    reset();
+                }
+                isJumping = true;
                 gameRunning = 1;
                 jump = 2.0f;
                 //std::cout << "Tecla de salto Coordenadas del cubo: (" << cubeX << ", " << cubeY << ", " << cubeZ << ")" << std::endl;
             } else {
                 jump = 0.0f;
+                isJumping = false;
             }
             break;
     }
@@ -438,13 +452,14 @@ void renderEnemy(float angle, glm::mat4 P, glm::mat4 V) {
 }
 
 void funTimer(double seconds, double &t0) { //se encarga de la rotacion automatica del personaje
-
     double t1 = glfwGetTime();
     if (t1 - t0 > seconds) {
         rotP += 5.0f;
+        rotP = glm::mod(rotP, 360.0f);  // Asegurar que el ángulo esté en el rango [0, 359]
         t0 = t1;
     }
 }
+
 
 void reset() {
     cubeX = 0.0;
