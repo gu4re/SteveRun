@@ -6,18 +6,23 @@
 #include "Texture.h"
 
 void configScene();
-void renderScene(GLFWwindow* window);
-void setLights (glm::mat4 P, glm::mat4 V);
+void renderGame(GLFWwindow* window);
+void renderMenu(GLFWwindow* window);
+void setLights(glm::mat4 P, glm::mat4 V);
 void drawObjectMat(Model &model, Material &material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawObjectTex(Model &model, Textures &textures, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void renderEnemy(float angle, glm::mat4 P, glm::mat4 V);
 void funTimer(double seconds, double &t0);
 void reset();
+void screenMode(GLFWwindow* window);
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
-void funKey            (GLFWwindow* window, int key  , int scancode, int action, int mods);
-void funScroll         (GLFWwindow* window, double xoffset, double yoffset);
-void funCursorPos      (GLFWwindow* window, double xpos, double ypos);
+
+void gamefunKey            (GLFWwindow* window, int key  , int scancode, int action, int mods);
+void gamefunScroll         (GLFWwindow* window, double xoffset, double yoffset);
+void gamefunCursorPos      (GLFWwindow* window, double xpos, double ypos);
+
+void menufunKey            (GLFWwindow* window, int key  , int scancode, int action, int mods);
 
 // Shaders
    Shaders shaders;
@@ -39,6 +44,8 @@ void funCursorPos      (GLFWwindow* window, double xpos, double ypos);
    Texture imgWallDiffuse;
    Texture imgWallSpecular;
    Texture imgWallNormal;
+   Texture imgSepia;
+   Texture imgSepiaEmissive;
 
 
 // Luces y materiales
@@ -57,16 +64,19 @@ void funCursorPos      (GLFWwindow* window, double xpos, double ypos);
    Textures  texEarth;
    Textures  texChess;
    Textures  texCube;
-   Textures texWindow;
-   Textures texPlane;
+   Textures  texWindow;
+   Textures  texPlane;
+   Textures  texSepia;
 
 // Viewport
-   int w = 500;
-   int h = 500;
+   int w = 700;
+   int h = 700;
+   bool fullscreen_mode = false;
 
 // Animaciones
    float rotP = 0.0;
    float jump = 0.0;
+   double last_timer = 0.0;
 
 // Movimiento de camara
    float fovy   = 60.0;
@@ -81,9 +91,12 @@ void funCursorPos      (GLFWwindow* window, double xpos, double ypos);
 // Variable que indica si el juego está en marcha
     int gameRunning = 0;
 
-// Variable que indica si el personaje está realmente saltando (comrpueba que la tecla espacio no se haya dejado pulsada continuamente)
-    bool isJumping = false;
 
+// Variable que indica si el personaje está realmente saltando
+// (comprueba que la tecla espacio no se haya dejado pulsada continuamente)
+    bool isJumping = false;
+//  Variable que controla si estamos en el menu
+    bool inMainMenu = true;
 
 
 int main() {
@@ -116,32 +129,32 @@ int main() {
     const GLubyte *oglVersion = glGetString(GL_VERSION);
     std::cout <<"This system supports OpenGL Version: " << oglVersion << std::endl;
 
- // Configuramos los CallBacks
-    glfwSetFramebufferSizeCallback(window, funFramebufferSize);
-    glfwSetKeyCallback      (window, funKey);
-    glfwSetScrollCallback   (window, funScroll);
-    glfwSetCursorPosCallback(window, funCursorPos);
-
     // Entramos en el bucle de renderizado
     configScene();
     double t0 = glfwGetTime();
     double elapsed = 0.0;
 
     while (!glfwWindowShouldClose(window)) {
-        double t1 = glfwGetTime();
-        double deltaTime = t1 - t0;
-        t0 = t1;
+        if (inMainMenu) {
+            renderMenu(window);
+            glfwSwapBuffers(window);
+            glfwPollEvents();
+        } else {
+            double t1 = glfwGetTime();
+            double deltaTime = t1 - t0;
+            t0 = t1;
 
-        renderScene(window);
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+            renderGame(window);
+            glfwSwapBuffers(window);
+            glfwPollEvents();
 
-        // Solo llamamos a funTimer cuando gameRunning es 1
-        if (gameRunning == 1) {
-            elapsed += deltaTime;
-            if (elapsed >= 0.01) {  // Llama a la función funTimer cada 0.01 segundos
-                funTimer(elapsed, t0);
-                elapsed = 0.0;
+            // Solo llamamos a funTimer cuando gameRunning es 1
+            if (gameRunning == 1) {
+                elapsed += deltaTime;
+                if (elapsed >= 0.01) {  // Llama a la función funTimer cada 0.01 segundos
+                    funTimer(elapsed, t0);
+                    elapsed = 0.0;
+                }
             }
         }
     }
@@ -180,6 +193,8 @@ void configScene() {
     imgWallDiffuse.initTexture("resources/textures/imgWallDiffuse.png");
     imgWallSpecular.initTexture("resources/textures/imgWallSpecular.png");
     imgWallNormal.initTexture("resources/textures/imgWallNormal.png");
+    imgSepia.initTexture("resources/textures/imgSepia.png");
+    imgSepiaEmissive.initTexture("resources/textures/imgSepiaEmissive.png");
 
  // Luz ambiental global
     lightG.ambient = glm::vec3(0.5, 0.5, 0.5);
@@ -282,9 +297,20 @@ void configScene() {
     texPlane.normal    = imgWallNormal.getTexture();
     texPlane.shininess = 51.2;
 
+    texSepia.diffuse   = imgSepia.getTexture();
+    texSepia.specular  = imgSepia.getTexture();
+    texSepia.emissive  = imgSepiaEmissive.getTexture();
+    texSepia.normal    = 0;
+    texSepia.shininess = 10.0;
+
 }
 
-void renderScene(GLFWwindow* window) {
+void renderGame(GLFWwindow* window) {
+ // Configuramos los CallBacks
+    glfwSetFramebufferSizeCallback(window, funFramebufferSize);
+    glfwSetKeyCallback      (window, gamefunKey);
+    glfwSetScrollCallback   (window, gamefunScroll);
+    glfwSetCursorPosCallback(window, gamefunCursorPos);
 
  // Borramos el buffer de color
     glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -387,7 +413,7 @@ void funFramebufferSize(GLFWwindow* window, int width, int height) {
 
 }
 
-void funKey(GLFWwindow* window, int key  , int scancode, int action, int mods) {
+void gamefunKey(GLFWwindow* window, int key  , int scancode, int action, int mods) {
 
     switch(key) {
         case GLFW_KEY_UP:
@@ -420,18 +446,29 @@ void funKey(GLFWwindow* window, int key  , int scancode, int action, int mods) {
                 isJumping = false;
             }
             break;
+        case GLFW_KEY_F:
+            if (action == GLFW_PRESS) {
+                fullscreen_mode ? fullscreen_mode = false : fullscreen_mode = true;
+                screenMode(window);
+            }
+            break;
+        case GLFW_KEY_ESCAPE:
+            if (action == GLFW_PRESS) {
+                inMainMenu = true;
+            }
+            break;
     }
 
 }
 
-void funScroll(GLFWwindow* window, double xoffset, double yoffset) {
+void gamefunScroll(GLFWwindow* window, double xoffset, double yoffset) {
 
     if(yoffset>0) fovy -= fovy>10.0f ? 5.0f : 0.0f;
     if(yoffset<0) fovy += fovy<90.0f ? 5.0f : 0.0f;
 
 }
 
-void funCursorPos(GLFWwindow* window, double xpos, double ypos) {
+void gamefunCursorPos(GLFWwindow* window, double xpos, double ypos) {
 
     if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_LEFT)==GLFW_RELEASE) return;
 
@@ -466,4 +503,110 @@ void reset() {
     cubeZ = 0.0;
     cubeY = 9.0;
     rotP = 0.0;
+}
+
+void screenMode(GLFWwindow* window) {
+    // Gets the current monitor where is running the game
+    GLFWmonitor *primaryMonitor = glfwGetPrimaryMonitor();
+    int xpos, ypos;
+    glfwGetWindowPos(window, &xpos, &ypos);
+    // Gets the video mode to obtain screen specs
+    const GLFWvidmode *videoMode = glfwGetVideoMode(primaryMonitor);
+    if (fullscreen_mode) {
+        glfwSetWindowMonitor(window, primaryMonitor, 0, 0,
+                             videoMode->width, videoMode->height, videoMode->refreshRate);
+    } else {
+        std::cout << videoMode->width << std::endl;
+        glfwSetWindowMonitor(window, nullptr, (videoMode->width / 2) - 700,
+                             (videoMode->height / 2) - 700,700, 700,
+                             videoMode->refreshRate);
+    }
+}
+
+void renderMenu(GLFWwindow* window) {
+    // Configuramos los CallBacks
+    glfwSetFramebufferSizeCallback(window, funFramebufferSize);
+    glfwSetKeyCallback      (window, menufunKey);
+    glfwSetScrollCallback   (window, nullptr);
+    glfwSetCursorPosCallback(window, nullptr);
+
+    // Borramos el buffer de color
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // Indicamos los shaders a utilizar
+    shaders.useShaders();
+
+    // Matriz P
+    float nplane =  0.1;
+    float fplane = 25.0;
+    float aspect = (float)w/(float)h;
+    // Custom fovy
+    fovy = 45;
+    glm::mat4 P = glm::perspective(glm::radians(fovy), aspect, nplane, fplane);
+
+    // Matriz V
+    glm::vec3 eye   (10.0,5.0,20.0);
+    glm::vec3 center(0.0,0.0,0.0);
+    glm::vec3 up    (0.0,1.0,0.0);
+    glm::mat4 V = glm::lookAt(eye, center, up);
+    shaders.setVec3("ueye",eye);
+
+    // Fijamos las luces
+    setLights(P,V);
+
+    // Dibujamos el personaje
+    // Control de la rotacion automatica del personaje
+    auto currentTime = glfwGetTime();
+    double deltaTime = currentTime - last_timer;
+    // Check if the threshold is passed
+    if (deltaTime >= 0.019){
+        last_timer = currentTime;
+        rotP += 2.0;
+        // Ensuring that the angle is always less than 360º
+        rotP = fmod(rotP, 360.0);
+    }
+    // Cubo
+    glm::mat4 T = glm::translate(I, glm::vec3(cubeX, cubeY, cubeZ));
+    glm::mat4 S1 = glm::scale(I, glm::vec3(0.5));
+    glm::mat4 R1 = glm::rotate(I, glm::radians(rotP), glm::vec3(1,0, 0));
+    drawObjectTex(cube, texRuby, P, V, R1*S1*T); // dibujamos el personaje
+
+    // Dibujamos el planeta
+    glm::mat4 S = glm::scale(I, glm::vec3(2));
+    drawObjectTex(sphere, texGold, P, V, S);
+
+    // Efecto sepia al menu
+    glm::mat4 sepiaSize = glm::scale(I, glm::vec3(20));
+    glm::mat4 sepiaPos = glm::rotate(
+            glm::rotate(
+                    glm::translate(I, glm::vec3(0.4, 0.1, 0.8)),
+                    glm::radians(25.0f), glm::vec3(0, 1, 0)
+                    ),
+                    glm::radians(90.0f), glm::vec3(1,0, 0)
+            );
+    glDepthMask(GL_FALSE);
+        drawObjectTex(plane, texSepia, P, V, sepiaSize*sepiaPos);
+    glDepthMask(GL_TRUE);
+
+}
+
+void menufunKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    switch(key) {
+        case GLFW_KEY_ENTER:
+            if (action == GLFW_PRESS) {
+                inMainMenu = false;
+            }
+            break;
+        case GLFW_KEY_F:
+            if (action == GLFW_PRESS) {
+                fullscreen_mode ? fullscreen_mode = false : fullscreen_mode = true;
+                screenMode(window);
+            }
+            break;
+        case GLFW_KEY_ESCAPE:
+            if (action == GLFW_PRESS) {
+                exit(0);
+            }
+    }
 }
