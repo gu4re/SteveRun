@@ -604,5 +604,9 @@ void menufunKey(GLFWwindow* window, int key, int scancode, int action, int mods)
                 screenMode(window);
             }
             break;
+        case GLFW_KEY_ESCAPE:
+            if (action == GLFW_PRESS) {
+                exit(0);
+            }
     }
 }
