@@ -4,6 +4,9 @@
 #include "Shaders.h"
 #include "Model.h"
 #include "Texture.h"
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 
 void configScene();
 void renderGame(GLFWwindow* window);
@@ -60,7 +63,7 @@ void menufunKey            (GLFWwindow* window, int key  , int scancode, int act
    Material  ruby;
    Material  gold;
    Textures  texRuby;
-   Textures  texGold; // ojo que es en plural
+   Textures  texGold;
    Textures  texEarth;
    Textures  texChess;
    Textures  texCube;
@@ -128,6 +131,10 @@ int main() {
     std::cout << "Status: Using GLEW " << glewGetString(GLEW_VERSION) << std::endl;
     const GLubyte *oglVersion = glGetString(GL_VERSION);
     std::cout <<"This system supports OpenGL Version: " << oglVersion << std::endl;
+
+    // Inicializamos IMGUI
+    IMGUI_CHECKVERSION();
+    std::cout <<"This system supports ImGui Version: " << ImGui::GetVersion() << std::endl;
 
     // Entramos en el bucle de renderizado
     configScene();
