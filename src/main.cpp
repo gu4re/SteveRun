@@ -23,8 +23,6 @@ void drawObjectTex(Model &model, Textures &textures, glm::mat4 P, glm::mat4 V, g
 
 void renderEnemy(float angle, glm::mat4 P, glm::mat4 V);
 
-void funTimer(double seconds, double &t0);
-
 void reset();
 
 void screenMode(GLFWwindow *window);
@@ -473,16 +471,6 @@ void renderEnemy(float angle, glm::mat4 P, glm::mat4 V) {
 
     drawObjectTex(cube, texRuby, P, V, R * S * T);
 }
-
-void funTimer(double seconds, double &t0) { //se encarga de la rotacion automatica del personaje
-    auto t1 = glfwGetTime();
-    if (t1 - t0 > seconds) {
-        rotP += 5.0f;
-        rotP = glm::mod(rotP, 360.0f);  // Asegurar que el ángulo esté en el rango [0, 359]
-        t0 = t1;
-    }
-}
-
 
 void reset() {
     cubeX = 0.0;
