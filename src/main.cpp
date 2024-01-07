@@ -41,25 +41,51 @@ void menufunKey(GLFWwindow *window, int key, int scancode, int action, int mods)
 Shaders shaders;
 
 // Modelos
-Model sphere;
-Model plane;
-Model cube;
+// Blocks
+Model objDiamondOre;
+Model objEmeraldOre;
+Model objGoldOre;
+Model objGrassBlock;
+Model objIronOre;
+Model objLapisOre;
+// Mobs
+Model objCreeper;
+Model objMagmacube;
+Model objSpider;
+Model objSteve;
+// General
+Model objSphere;
+Model objPlane;
+Model objCube;
 
 // Imagenes (texturas)
-Texture imgNoEmissive;
-Texture imgRuby;
-Texture imgGold;
-Texture imgEarth;
-Texture imgChess;
-Texture imgCubeDiffuse;
-Texture imgCubeSpecular;
-Texture imgWindow;
-Texture imgWallDiffuse;
-Texture imgWallSpecular;
-Texture imgWallNormal;
-Texture imgSepia;
-Texture imgSepiaEmissive;
-
+// Blocks
+Texture diamondOreEmissiveTex;
+Texture diamondOreTex;
+Texture emeraldOreEmissiveTex;
+Texture emeraldOreTex;
+Texture goldOreEmissiveTex;
+Texture goldOreTex;
+Texture grassBlockTex;
+Texture ironOreEmissiveTex;
+Texture ironOreTex;
+Texture lapisOreEmissiveTex;
+Texture lapisOreTex;
+Texture oakPlanksTex;
+Texture stoneBlockTex;
+// Effects
+Texture sepiaEffectTex;
+Texture sepiaEffectEmissiveTex;
+// Mobs
+Texture creeperEmissiveTex;
+Texture creeperTex;
+Texture magmacubeTex;
+Texture spiderEmissiveTex;
+Texture spiderTex;
+Texture steveEmissiveTex;
+Texture steveTex;
+// General
+Texture noEmissiveTex;
 
 // Luces y materiales
 #define   NLD 1
@@ -70,16 +96,24 @@ Light lightD[NLD];
 Light lightP[NLP];
 Light lightF[NLF];
 Material mluz;
-Material ruby;
-Material gold;
-Textures texRuby;
-Textures texGold;
-Textures texEarth;
-Textures texChess;
-Textures texCube;
-Textures texWindow;
-Textures texPlane;
-Textures texSepia;
+
+// Textures
+// Blocks
+Textures texturesDiamondOre;
+Textures texturesEmeraldOre;
+Textures texturesGoldOre;
+Textures texturesGrassBlock;
+Textures texturesIronOre;
+Textures texturesLapisOre;
+Textures texturesOakPlanks;
+Textures texturesStoneBlock;
+// Effects
+Textures texturesSepiaEffect;
+// Mobs
+Textures texturesCreeper;
+Textures texturesMagmacube;
+Textures texturesSpider;
+Textures texturesSteve;
 
 // Viewport
 int w = 700;
@@ -150,24 +184,51 @@ void initScene() {
                         "resources/shaders/fshader.glsl");
 
     // Modelos
-    sphere.initModel("resources/models/sphere.obj");
-    plane.initModel("resources/models/plane.obj");
-    cube.initModel("resources/models/cube.obj");
+    // Blocks
+    objDiamondOre.initModel("resources/models/_blocks/diamondOre.obj");
+    objEmeraldOre.initModel("resources/models/_blocks/emeraldOre.obj");
+    objGoldOre.initModel("resources/models/_blocks/goldOre.obj");
+    objGrassBlock.initModel("resources/models/_blocks/grassBlock.obj");
+    objIronOre.initModel("resources/models/_blocks/ironOre.obj");
+    objLapisOre.initModel("resources/models/_blocks/lapisOre.obj");
+    // Mobs
+    objCreeper.initModel("resources/models/_mobs/creeper.obj");
+    objMagmacube.initModel("resources/models/_mobs/magmacube.obj");
+    objSpider.initModel("resources/models/_mobs/spider.obj");
+    objSteve.initModel("resources/models/_mobs/steve.obj");
+    // General
+    objSphere.initModel("resources/models/sphere.obj");
+    objPlane.initModel("resources/models/plane.obj");
+    objCube.initModel("resources/models/cube.obj");
 
     // Imagenes (texturas)
-    imgNoEmissive.initTexture("resources/textures/imgNoEmissive.png");
-    imgRuby.initTexture("resources/textures/imgRuby.png");
-    imgGold.initTexture("resources/textures/imgGold.png");
-    imgEarth.initTexture("resources/textures/imgEarth.png");
-    imgChess.initTexture("resources/textures/imgChess.png");
-    imgCubeDiffuse.initTexture("resources/textures/imgCubeDiffuse.png");
-    imgCubeSpecular.initTexture("resources/textures/imgCubeSpecular.png");
-    imgWindow.initTexture("resources/textures/imgWindow.png");
-    imgWallDiffuse.initTexture("resources/textures/imgWallDiffuse.png");
-    imgWallSpecular.initTexture("resources/textures/imgWallSpecular.png");
-    imgWallNormal.initTexture("resources/textures/imgWallNormal.png");
-    imgSepia.initTexture("resources/textures/imgSepia.png");
-    imgSepiaEmissive.initTexture("resources/textures/imgSepiaEmissive.png");
+    // Blocks
+    diamondOreEmissiveTex.initTexture("resources/textures/_blocks/diamondOreEmissiveTex.png");
+    diamondOreTex.initTexture("resources/textures/_blocks/diamondOreTex.png");
+    emeraldOreEmissiveTex.initTexture("resources/textures/_blocks/emeraldOreEmissiveTex.png");
+    emeraldOreTex.initTexture("resources/textures/_blocks/emeraldOreTex.png");
+    goldOreEmissiveTex.initTexture("resources/textures/_blocks/goldOreEmissiveTex.png");
+    goldOreTex.initTexture("resources/textures/_blocks/goldOreTex.png");
+    grassBlockTex.initTexture("resources/textures/_blocks/grassBlockTex.png");
+    ironOreEmissiveTex.initTexture("resources/textures/_blocks/ironOreEmissiveTex.png");
+    ironOreTex.initTexture("resources/textures/_blocks/ironOreTex.png");
+    lapisOreEmissiveTex.initTexture("resources/textures/_blocks/lapisOreEmissiveTex.png");
+    lapisOreTex.initTexture("resources/textures/_blocks/lapisOreTex.png");
+    oakPlanksTex.initTexture("resources/textures/_blocks/oakPlanksTex.jpg");
+    stoneBlockTex.initTexture("resources/textures/_blocks/stoneBlockTex.jpg");
+    // Effects
+    sepiaEffectTex.initTexture("resources/textures/_effects/sepiaEffectTex.png");
+    sepiaEffectEmissiveTex.initTexture("resources/textures/_effects/sepiaEffectEmissiveTex.png");
+    // Mobs
+    creeperEmissiveTex.initTexture("resources/textures/_mobs/creeperEmissiveTex.png");
+    creeperTex.initTexture("resources/textures/_mobs/creeperTex.png");
+    magmacubeTex.initTexture("resources/textures/_mobs/magmacubeTex.png");
+    spiderEmissiveTex.initTexture("resources/textures/_mobs/spiderEmissiveTex.jpeg");
+    spiderTex.initTexture("resources/textures/_mobs/spiderTex.png");
+    steveEmissiveTex.initTexture("resources/textures/_mobs/steveEmissiveTex.jpeg");
+    steveTex.initTexture("resources/textures/_mobs/steveTex.png");
+    // General
+    noEmissiveTex.initTexture("resources/textures/noEmissiveTex.png");
 
     // Luz ambiental global
     lightG.ambient = glm::vec3(0.5, 0.5, 0.5);
@@ -216,65 +277,75 @@ void initScene() {
     mluz.emissive = glm::vec4(1.0, 1.0, 1.0, 1.0);
     mluz.shininess = 1.0;
 
-    ruby.ambient = glm::vec4(0.174500, 0.011750, 0.011750, 0.55);
-    ruby.diffuse = glm::vec4(0.614240, 0.041360, 0.041360, 0.55);
-    ruby.specular = glm::vec4(0.727811, 0.626959, 0.626959, 0.55);
-    ruby.emissive = glm::vec4(0.000000, 0.000000, 0.000000, 1.00);
-    ruby.shininess = 76.8;
-
-    gold.ambient = glm::vec4(0.247250, 0.199500, 0.074500, 1.00);
-    gold.diffuse = glm::vec4(0.751640, 0.606480, 0.226480, 1.00);
-    gold.specular = glm::vec4(0.628281, 0.555802, 0.366065, 1.00);
-    gold.emissive = glm::vec4(0.000000, 0.000000, 0.000000, 1.00);
-    gold.shininess = 51.2;
-
-    texRuby.diffuse = imgRuby.getTexture();
-    texRuby.specular = imgRuby.getTexture();
-    texRuby.emissive = imgNoEmissive.getTexture();
-    texRuby.normal = 0;
-    texRuby.shininess = 76.8;
-
-    texGold.diffuse = imgGold.getTexture();
-    texGold.specular = imgGold.getTexture();
-    texGold.emissive = imgNoEmissive.getTexture();
-    texGold.normal = 0;
-    texGold.shininess = 51.2;
-
-    texEarth.diffuse = imgEarth.getTexture();
-    texEarth.specular = imgEarth.getTexture();
-    texEarth.emissive = imgNoEmissive.getTexture();
-    texEarth.normal = 0;
-    texEarth.shininess = 10.0;
-
-    texChess.diffuse = imgChess.getTexture();
-    texChess.specular = imgChess.getTexture();
-    texChess.emissive = imgNoEmissive.getTexture();
-    texChess.normal = 0;
-    texChess.shininess = 10.0;
-
-    texCube.diffuse = imgCubeDiffuse.getTexture(); //la difusa es la textura que va a cubrir el modelo
-    texCube.specular = imgCubeSpecular.getTexture(); // la especular es la que va a determinar el brillo del modelo
-    texCube.emissive = imgNoEmissive.getTexture(); // la emisiva es si va a emitir luz por si solo
-    texCube.normal = 0;
-    texCube.shininess = 10.0;
-
-    texWindow.diffuse = imgWindow.getTexture();
-    texWindow.specular = imgWindow.getTexture();
-    texWindow.emissive = imgWindow.getTexture();
-    texWindow.normal = 0;
-    texWindow.shininess = 10.0;
-
-    texPlane.diffuse = imgGold.getTexture();
-    texPlane.specular = imgWallSpecular.getTexture();
-    texPlane.emissive = imgNoEmissive.getTexture();
-    texPlane.normal = imgWallNormal.getTexture();
-    texPlane.shininess = 51.2;
-
-    texSepia.diffuse = imgSepia.getTexture();
-    texSepia.specular = imgSepia.getTexture();
-    texSepia.emissive = imgSepiaEmissive.getTexture();
-    texSepia.normal = 0;
-    texSepia.shininess = 10.0;
+    // Textures
+    // Blocks
+    texturesDiamondOre.diffuse = diamondOreTex.getTexture();
+    texturesDiamondOre.specular = diamondOreTex.getTexture();
+    texturesDiamondOre.emissive = diamondOreEmissiveTex.getTexture();
+    texturesDiamondOre.normal = 0;
+    texturesDiamondOre.shininess = 10.0;
+    texturesEmeraldOre.diffuse = emeraldOreTex.getTexture();
+    texturesEmeraldOre.specular = emeraldOreTex.getTexture();
+    texturesEmeraldOre.emissive = emeraldOreEmissiveTex.getTexture();
+    texturesEmeraldOre.normal = 0;
+    texturesEmeraldOre.shininess = 10.0;
+    texturesGoldOre.diffuse = goldOreTex.getTexture();
+    texturesGoldOre.specular = goldOreTex.getTexture();
+    texturesGoldOre.emissive = goldOreEmissiveTex.getTexture();
+    texturesGoldOre.normal = 0;
+    texturesGoldOre.shininess = 10.0;
+    texturesGrassBlock.diffuse = grassBlockTex.getTexture();
+    texturesGrassBlock.specular = grassBlockTex.getTexture();
+    texturesGrassBlock.emissive = grassBlockTex.getTexture();
+    texturesGrassBlock.normal = 0;
+    texturesGrassBlock.shininess = 10.0;
+    texturesIronOre.diffuse = ironOreTex.getTexture();
+    texturesIronOre.specular = ironOreTex.getTexture();
+    texturesIronOre.emissive = ironOreEmissiveTex.getTexture();
+    texturesIronOre.normal = 0;
+    texturesIronOre.shininess = 10.0;
+    texturesLapisOre.diffuse = lapisOreTex.getTexture();
+    texturesLapisOre.specular = lapisOreTex.getTexture();
+    texturesLapisOre.emissive = lapisOreEmissiveTex.getTexture();
+    texturesLapisOre.normal = 0;
+    texturesLapisOre.shininess = 10.0;
+    texturesOakPlanks.diffuse = oakPlanksTex.getTexture();
+    texturesOakPlanks.specular = oakPlanksTex.getTexture();
+    texturesOakPlanks.emissive = oakPlanksTex.getTexture();
+    texturesOakPlanks.normal = 0;
+    texturesOakPlanks.shininess = 10.0;
+    texturesStoneBlock.diffuse = stoneBlockTex.getTexture();
+    texturesStoneBlock.specular = stoneBlockTex.getTexture();
+    texturesStoneBlock.emissive = stoneBlockTex.getTexture();
+    texturesStoneBlock.normal = 0;
+    texturesStoneBlock.shininess = 10.0;
+    // Effects
+    texturesSepiaEffect.diffuse = sepiaEffectTex.getTexture();
+    texturesSepiaEffect.specular = sepiaEffectTex.getTexture();
+    texturesSepiaEffect.emissive = sepiaEffectEmissiveTex.getTexture();
+    texturesSepiaEffect.normal = 0;
+    texturesSepiaEffect.shininess = 10.0;
+    // Mobs
+    texturesCreeper.diffuse = creeperTex.getTexture();
+    texturesCreeper.specular = creeperTex.getTexture();
+    texturesCreeper.emissive = creeperEmissiveTex.getTexture();
+    texturesCreeper.normal = 0;
+    texturesCreeper.shininess = 10.0;
+    texturesMagmacube.diffuse = magmacubeTex.getTexture();
+    texturesMagmacube.specular = magmacubeTex.getTexture();
+    texturesMagmacube.emissive = magmacubeTex.getTexture();
+    texturesMagmacube.normal = 0;
+    texturesMagmacube.shininess = 10.0;
+    texturesSpider.diffuse = spiderTex.getTexture();
+    texturesSpider.specular = spiderTex.getTexture();
+    texturesSpider.emissive = spiderEmissiveTex.getTexture();
+    texturesSpider.normal = 0;
+    texturesSpider.shininess = 10.0;
+    texturesSteve.diffuse = steveTex.getTexture();
+    texturesSteve.specular = steveTex.getTexture();
+    texturesSteve.emissive = steveEmissiveTex.getTexture();
+    texturesSteve.normal = 0;
+    texturesSteve.shininess = 10.0;
 
 }
 
@@ -326,13 +397,13 @@ void renderGame(GLFWwindow *window) {
     glm::mat4 Salto = glm::translate(I, glm::vec3(cubeX, jump, cubeZ));
     glm::mat4 S1 = glm::scale(I, glm::vec3(0.5));
     glm::mat4 R1 = glm::rotate(I, glm::radians(rotP), glm::vec3(1, 0, 0));
-    drawObjectTex(cube, texRuby, P, V, R1 * S1 * Salto * T);// dibujamos el personaje
+    drawObjectTex(objCube, texturesStoneBlock, P, V, R1 * S1 * Salto * T);// dibujamos el personaje
 
     //Dibujamos obstáculo/enemigo
     renderEnemy(45, P, V);
 
     glm::mat4 S = glm::scale(I, glm::vec3(2));
-    drawObjectTex(sphere, texGold, P, V, S); // dibujamos el planeta
+    drawObjectTex(objSphere, texturesStoneBlock, P, V, S); // dibujamos el planeta
 
     // Comparamos los ángulos de rotación del personaje y el enemigo
     std::set<int> rangoPermitido;
@@ -353,12 +424,12 @@ void setLights(glm::mat4 P, glm::mat4 V) {
 
     for (auto &i: lightP) {
         glm::mat4 M = glm::translate(I, i.position) * glm::scale(I, glm::vec3(0.1));
-        drawObjectMat(sphere, mluz, P, V, M);
+        drawObjectMat(objSphere, mluz, P, V, M);
     }
 
     for (auto &i: lightF) {
         glm::mat4 M = glm::translate(I, i.position) * glm::scale(I, glm::vec3(0.025));
-        drawObjectMat(sphere, mluz, P, V, M);
+        drawObjectMat(objSphere, mluz, P, V, M);
     }
 
 }
@@ -469,7 +540,7 @@ void renderEnemy(float angle, glm::mat4 P, glm::mat4 V) {
     glm::mat4 T = glm::translate(I, glm::vec3(0, 14.42, 0));
     glm::mat4 R = glm::rotate(I, glm::radians(angle), glm::vec3(1, 0, 0));
 
-    drawObjectTex(cube, texRuby, P, V, R * S * T);
+    drawObjectTex(objCube, texturesStoneBlock, P, V, R * S * T);
 }
 
 void reset() {
@@ -490,7 +561,6 @@ void screenMode(GLFWwindow *window) {
         glfwSetWindowMonitor(window, primaryMonitor, 0, 0,
                              videoMode->width, videoMode->height, videoMode->refreshRate);
     } else {
-        std::cout << videoMode->width << std::endl;
         glfwSetWindowMonitor(window, nullptr, (videoMode->width / 2) - 700,
                              (videoMode->height / 2) - 700, 700, 700,
                              videoMode->refreshRate);
@@ -543,13 +613,13 @@ void renderMenu(GLFWwindow *window) {
     glm::mat4 T = glm::translate(I, glm::vec3(cubeX, cubeY, cubeZ));
     glm::mat4 S1 = glm::scale(I, glm::vec3(0.5));
     glm::mat4 R1 = glm::rotate(I, glm::radians(rotP), glm::vec3(1, 0, 0));
-    drawObjectTex(cube, texRuby, P, V, R1 * S1 * T); // dibujamos el personaje
+    drawObjectTex(objCube, texturesStoneBlock, P, V, R1 * S1 * T); // dibujamos el personaje
 
     // Dibujamos el planeta
     glm::mat4 S = glm::scale(I, glm::vec3(2));
-    drawObjectTex(sphere, texGold, P, V, S);
+    drawObjectTex(objSphere, texturesStoneBlock, P, V, S);
 
-    // Efecto sepia al menu
+    // Efecto texturesSepiaEffect al menu
     glm::mat4 sepiaSize = glm::scale(I, glm::vec3(20));
     glm::mat4 sepiaPos = glm::rotate(
             glm::rotate(
@@ -559,7 +629,7 @@ void renderMenu(GLFWwindow *window) {
             glm::radians(90.0f), glm::vec3(1, 0, 0)
     );
     glDepthMask(GL_FALSE);
-    drawObjectTex(plane, texSepia, P, V, sepiaSize * sepiaPos);
+    drawObjectTex(objPlane, texturesSepiaEffect, P, V, sepiaSize * sepiaPos);
     glDepthMask(GL_TRUE);
 
 }
