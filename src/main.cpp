@@ -4,12 +4,11 @@
 #include "Shaders.h"
 #include "Model.h"
 #include "Texture.h"
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_glfw.h"
-#include "imgui/imgui_impl_opengl3.h"
 #include <set>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
-GLFWwindow *init();
+std::tuple<GLFWwindow *, FT_Library, FT_Face>init();
 
 void renderGame(GLFWwindow *window);
 
@@ -71,6 +70,9 @@ Texture ironOreEmissiveTex;
 Texture ironOreTex;
 Texture lapisOreEmissiveTex;
 Texture lapisOreTex;
+Texture oakLeavesTex;
+Texture oakLogSideTex;
+Texture oakLogTopTex;
 Texture oakPlanksTex;
 Texture stoneBlockTex;
 // Effects
@@ -105,6 +107,7 @@ Textures texturesGoldOre;
 Textures texturesGrassBlock;
 Textures texturesIronOre;
 Textures texturesLapisOre;
+Textures texturesOakLeaves;
 Textures texturesOakPlanks;
 Textures texturesStoneBlock;
 // Effects
@@ -147,7 +150,7 @@ bool inMainMenu = true;
 int main() {
 
     // Inicializa lo necesario
-    GLFWwindow *window = init();
+    auto [window, ft, face] = init();
 
     // Callbacks globales para todas las capas de renderizado
     glfwSetFramebufferSizeCallback(window, funFramebufferSize);
@@ -214,6 +217,9 @@ void initScene() {
     ironOreTex.initTexture("resources/textures/_blocks/ironOreTex.png");
     lapisOreEmissiveTex.initTexture("resources/textures/_blocks/lapisOreEmissiveTex.png");
     lapisOreTex.initTexture("resources/textures/_blocks/lapisOreTex.png");
+    oakLeavesTex.initTexture("resources/textures/_blocks/oakLeavesTex.png");
+    oakLogSideTex.initTexture("resources/textures/_blocks/oakLogSideTex.png");
+    oakLogTopTex.initTexture("resources/textures/_blocks/oakLogTopTex.png");
     oakPlanksTex.initTexture("resources/textures/_blocks/oakPlanksTex.jpg");
     stoneBlockTex.initTexture("resources/textures/_blocks/stoneBlockTex.jpg");
     // Effects
@@ -309,6 +315,11 @@ void initScene() {
     texturesLapisOre.emissive = lapisOreEmissiveTex.getTexture();
     texturesLapisOre.normal = 0;
     texturesLapisOre.shininess = 10.0;
+    texturesOakLeaves.diffuse = oakLeavesTex.getTexture();
+    texturesOakLeaves.specular = oakLeavesTex.getTexture();
+    texturesOakLeaves.emissive = oakLeavesTex.getTexture();
+    texturesOakLeaves.normal = 0;
+    texturesOakLeaves.shininess = 10.0;
     texturesOakPlanks.diffuse = oakPlanksTex.getTexture();
     texturesOakPlanks.specular = oakPlanksTex.getTexture();
     texturesOakPlanks.emissive = oakPlanksTex.getTexture();
@@ -693,17 +704,32 @@ void initGLEW() {
     std::cout << "This system supports OpenGL Version: " << oglVersion << std::endl;
 }
 
-void initIMGUI() {
-    // Inicializamos IMGUI
-    IMGUI_CHECKVERSION();
-    std::cout << "This system supports ImGui Version: " << ImGui::GetVersion() << std::endl;
+std::tuple<FT_Library, FT_Face> initFreetype() {
+    FT_Library ft;
+    if (FT_Init_FreeType(&ft))
+    {
+        std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+        exit(-1);
+    }
+
+    FT_Face face;
+    if (FT_New_Face(ft, "resources/fonts/comicsansms.ttf", 0, &face))
+    {
+        std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+        exit(-1);
+    }
+
+    FT_Int major, minor, patch;
+    FT_Library_Version(ft, &major, &minor, &patch);
+    std::cout << "FreeType Version: " << major << "." << minor << "." << patch << std::endl;
+    return std::make_tuple(ft, face);
 }
 
-GLFWwindow *init() {
+std::tuple<GLFWwindow *, FT_Library, FT_Face> init() {
     initGLFW();
     GLFWwindow *window = initWindow();
     initGLEW();
-    initIMGUI();
+    auto [ft, face] = initFreetype();
     initScene();
-    return window;
+    return std::make_tuple(window, ft, face);
 }
