@@ -1,9 +1,9 @@
-#include "Texture.h"
+#include "TexturesManager.h"
 
 //------------------------
 // Crea la textura
 //------------------------
-void Texture::initTexture(const char *textureFile) {
+void TexturesManager::initTexture(const char *textureFile) {
     
  // Creamos la textura a configurar
     glGenTextures(1,&texture);  
@@ -32,7 +32,7 @@ void Texture::initTexture(const char *textureFile) {
 //--------------------------------------------------
 // Carga una textura mediante la librería Freeimage
 //--------------------------------------------------
-unsigned char* Texture::loadTexture(const char *textureFile, unsigned int &w, unsigned int &h) {
+unsigned char* TexturesManager::loadTexture(const char *textureFile, unsigned int &w, unsigned int &h) {
     
     FreeImage_Initialise(TRUE);
 
@@ -75,7 +75,7 @@ unsigned char* Texture::loadTexture(const char *textureFile, unsigned int &w, un
 //-----------------------------------------
 // Devuelve el identificador de la textura
 //-----------------------------------------
-unsigned int Texture::getTexture() {
+unsigned int TexturesManager::getTexture() {
     
     return texture;
     
@@ -84,7 +84,7 @@ unsigned int Texture::getTexture() {
 //-----------------------
 // Destructor dela clase
 //-----------------------
-Texture::~Texture() {
+TexturesManager::~TexturesManager() {
     
     glDeleteTextures(1,&texture);
     

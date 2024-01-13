@@ -1,5 +1,5 @@
-#ifndef SHADERS_H
-#define SHADERS_H
+#ifndef SHADERS_MANAGER_H
+#define SHADERS_MANAGER_H
 
 #include <iostream>
 #include <fstream>
@@ -39,7 +39,7 @@ struct Textures {
     float        shininess;
 };
 
-class Shaders {
+class ShadersManager {
     
     public:
 
@@ -54,7 +54,7 @@ class Shaders {
         void setFloat   (const std::string &name, float     value);
         void setBool    (const std::string &name, int       value);
         
-        virtual ~Shaders();
+        virtual ~ShadersManager();
                 
     private:
                    
@@ -65,4 +65,4 @@ class Shaders {
 
 };
 
-#endif /* SHADERS_H */
+#endif /* SHADERS_MANAGER_H */

@@ -1,7 +1,6 @@
 # Made in Blockbench 4.8.3
-mtllib ironOre.mtl
 
-o objCube
+o modelCube
 v 0.5 1 0.5
 v 0.5 1 -0.5
 v 0.5 0 0.5

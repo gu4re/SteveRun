@@ -1,18 +1,18 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
+#ifndef TEXTURES_MANAGER_H
+#define TEXTURES_MANAGER_H
 
 #include <iostream>
 #include <GL/glew.h>
 #include <FreeImage.h>
 
-class Texture {
+class TexturesManager {
     
     public:
                
         void         initTexture(const char *textureFile); 
         unsigned int getTexture(); 
 
-        virtual ~Texture();
+        virtual ~TexturesManager();
            
     private:
        
@@ -22,4 +22,4 @@ class Texture {
         
 };
 
-#endif /* TEXTURE_H */
+#endif /* TEXTURES_MANAGER_H */

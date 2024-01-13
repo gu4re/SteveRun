@@ -2,7 +2,7 @@
 build/
 
 *.exe
-binary/CrocodileGame
+binary/SteveRun
 
 cmake-build-debug/
 
@@ -16,3 +16,5 @@ src/.DS_Store
 CMakeLists.txt
 
 .idea/
+
+compiler/

@@ -1,5 +1,5 @@
-#ifndef MODEL_H
-#define MODEL_H
+#ifndef MODELS_MANAGER_H
+#define MODELS_MANAGER_H
 
 #include <iostream>
 #include <vector>
@@ -12,14 +12,14 @@
 
 #define I glm::mat4(1.0)
 
-class Model {
+class ModelsManager {
     
     public:
                         
         void initModel  (const char *modelFile);
         void renderModel(unsigned long mode);        
                
-        virtual ~Model();
+        virtual ~ModelsManager();
                
     private:
         
@@ -36,4 +36,4 @@ class Model {
 
 };
 
-#endif /* MODEL_H */
+#endif /* MODELS_MANAGER_H */
