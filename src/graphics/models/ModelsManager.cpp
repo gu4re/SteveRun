@@ -1,9 +1,9 @@
-#include "Model.h"
+#include "../../../include/graphics/models/ModelsManager.h"
 
 //-----------------------------------------------------------------------------------------------------
 // Lee los atributos del modelo de un fichero de texto y los almacena en los vectores correspondientes
 //-----------------------------------------------------------------------------------------------------
-void Model::initModel(const char *modelFile) {
+void ModelsManager::initModel(const char *modelFile) {
    
  // Importa el modelo mediante la librería Assimp
     Assimp::Importer importer;
@@ -66,7 +66,7 @@ void Model::initModel(const char *modelFile) {
 //--------------------------------
 // Renderiza el VAO con el modelo
 //--------------------------------
-void Model::renderModel(unsigned long mode) {
+void ModelsManager::renderModel(unsigned long mode) {
     
     glPolygonMode(GL_FRONT_AND_BACK, mode);
     glBindVertexArray(vao);
@@ -78,7 +78,7 @@ void Model::renderModel(unsigned long mode) {
 //-----------------------------------
 // Destructor de la clase
 //-----------------------------------
-Model::~Model() {
+ModelsManager::~ModelsManager() {
   
     glDeleteBuffers(1,&vao);
     glDeleteBuffers(1,&vboPositions);

@@ -1,9 +1,9 @@
-#include "Shaders.h"
+#include "../../../include/graphics/shaders/ShadersManager.h"
 
 //--------------------------------------------------------------------------------------
 // Crea los shaders de vértices y fragmentos a partir del código fuente correspondiente
 //--------------------------------------------------------------------------------------
-void Shaders::initShaders(const char *vShaderFile, const char *fShaderFile) {
+void ShadersManager::initShaders(const char *vShaderFile, const char *fShaderFile) {
 
     unsigned int vShader = createShader(GL_VERTEX_SHADER  , vShaderFile);
     unsigned int fShader = createShader(GL_FRAGMENT_SHADER, fShaderFile);
@@ -14,7 +14,7 @@ void Shaders::initShaders(const char *vShaderFile, const char *fShaderFile) {
 //--------------------------------------
 // Crea un shader (vértices/fragmentos)
 //--------------------------------------
-unsigned int Shaders::createShader(unsigned long shader, const char* shaderFile) {
+unsigned int ShadersManager::createShader(unsigned long shader, const char* shaderFile) {
    
  // Se crea un objeto shader
     unsigned int shaderID = glCreateShader(shader);
@@ -54,7 +54,7 @@ unsigned int Shaders::createShader(unsigned long shader, const char* shaderFile)
 //-------------------------------------------------------------------
 // Crea un programa(identificador) que usa los shaders especificados
 //-------------------------------------------------------------------
-unsigned int Shaders::createProgram(unsigned int vShader, unsigned int fShader) {
+unsigned int ShadersManager::createProgram(unsigned int vShader, unsigned int fShader) {
     
  // Se crea un objeto programa
     unsigned int program = glCreateProgram();
@@ -85,7 +85,7 @@ unsigned int Shaders::createProgram(unsigned int vShader, unsigned int fShader) 
 //-----------------------------------------------------
 // Fija el valor de una variable uniforme de tipo vec3
 //-----------------------------------------------------
-void Shaders::setVec3(const std::string &name, glm::vec3 value) {
+void ShadersManager::setVec3(const std::string &name, glm::vec3 value) {
     
    glUniform3fv(glGetUniformLocation(program,name.c_str()), 1, glm::value_ptr(value));
     
@@ -94,7 +94,7 @@ void Shaders::setVec3(const std::string &name, glm::vec3 value) {
 //-----------------------------------------------------
 // Fija el valor de una variable uniforme de tipo mat4
 //-----------------------------------------------------
-void Shaders::setMat4(const std::string &name, glm::mat4 value) {
+void ShadersManager::setMat4(const std::string &name, glm::mat4 value) {
     
    glUniformMatrix4fv(glGetUniformLocation(program,name.c_str()), 1, GL_FALSE, glm::value_ptr(value)); 
     
@@ -103,7 +103,7 @@ void Shaders::setMat4(const std::string &name, glm::mat4 value) {
 //------------------------------------------------------
 // Fija el valor de una variable uniforme de tipo Light
 //------------------------------------------------------
-void Shaders::setLight(const std::string &name, Light value) {
+void ShadersManager::setLight(const std::string &name, Light value) {
     
     glUniform3fv(glGetUniformLocation(program,(name+".position"   ).c_str()), 1, glm::value_ptr(value.position ));
     glUniform3fv(glGetUniformLocation(program,(name+".direction"  ).c_str()), 1, glm::value_ptr(value.direction));
@@ -127,7 +127,7 @@ std::string toString(const int &i) {
 //---------------------------------------------------------
 // Fija el valor de una variable uniforme de tipo Material
 //---------------------------------------------------------
-void Shaders::setMaterial(const std::string &name, Material value) {
+void ShadersManager::setMaterial(const std::string &name, Material value) {
     
     glUniform4fv(glGetUniformLocation(program,(name+".ambient"  ).c_str()), 1, glm::value_ptr(value.ambient ));
     glUniform4fv(glGetUniformLocation(program,(name+".diffuse"  ).c_str()), 1, glm::value_ptr(value.diffuse ));
@@ -138,9 +138,9 @@ void Shaders::setMaterial(const std::string &name, Material value) {
 }
 
 //--------------------------------------------------------------------
-// Fija el valor de una variable uniforme (sampler2D) de tipo Texture
+// Fija el valor de una variable uniforme (sampler2D) de tipo TexturesManager
 //--------------------------------------------------------------------
-void Shaders::setTextures(const std::string &name, Textures value) {
+void ShadersManager::setTextures(const std::string &name, Textures value) {
    
     glActiveTexture(GL_TEXTURE0 + value.diffuse);
     glBindTexture(GL_TEXTURE_2D,value.diffuse);
@@ -167,7 +167,7 @@ void Shaders::setTextures(const std::string &name, Textures value) {
 //------------------------------------------------------
 // Fija el valor de una variable uniforme de tipo float
 //------------------------------------------------------
-void Shaders::setFloat(const std::string &name, float value) {
+void ShadersManager::setFloat(const std::string &name, float value) {
     
     glUniform1f(glGetUniformLocation(program,name.c_str()),value);
             
@@ -176,7 +176,7 @@ void Shaders::setFloat(const std::string &name, float value) {
 //------------------------------------------------------
 // Fija el valor de una variable uniforme de tipo bool
 //------------------------------------------------------
-void Shaders::setBool(const std::string &name, int value) {
+void ShadersManager::setBool(const std::string &name, int value) {
     
     glUniform1i(glGetUniformLocation(program,name.c_str()),value);
             
@@ -185,7 +185,7 @@ void Shaders::setBool(const std::string &name, int value) {
 //-----------------------------------------
 // Usa el shader para renderizar la escena
 //-----------------------------------------
-void Shaders::useShaders() {
+void ShadersManager::useShaders() {
     
     glUseProgram(program);
     
@@ -194,7 +194,7 @@ void Shaders::useShaders() {
 //-----------------------------------
 // Destructor de la clasede la clase 
 //-----------------------------------
-Shaders::~Shaders() {
+ShadersManager::~ShadersManager() {
 
     glDeleteProgram(program);
 
