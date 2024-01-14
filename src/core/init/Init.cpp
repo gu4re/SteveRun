@@ -2,17 +2,7 @@
 // Created by diegopicazo on 13/1/24.
 //
 
-#include "Init.h"
-#include <iostream>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include "../shaders/Shaders.h"
-#include "../textures/TexturesResources.h"
-#include "../textures/Textures.h"
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include "../models/Models.h"
-#include "../lights/Lights.h"
+#include "../../../include/core/init/Init.h"
 
 void initScene();
 void initGLFW();

@@ -1,4 +1,4 @@
-#include "TexturesManager.h"
+#include "../../../include/graphics/textures/TexturesManager.h"
 
 //------------------------
 // Crea la textura

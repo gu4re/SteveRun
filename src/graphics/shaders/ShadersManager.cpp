@@ -1,4 +1,4 @@
-#include "ShadersManager.h"
+#include "../../../include/graphics/shaders/ShadersManager.h"
 
 //--------------------------------------------------------------------------------------
 // Crea los shaders de vértices y fragmentos a partir del código fuente correspondiente
