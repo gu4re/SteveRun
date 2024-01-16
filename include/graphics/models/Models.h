@@ -7,6 +7,7 @@
 
 #include "ModelsManager.h"
 #include "../shaders/Shaders.h"
+#include "../textures/Textures.h"
 
 // Modelos
 // Blocks
@@ -28,5 +29,8 @@ inline ModelsManager modelCube;
 
 void drawObjectMat(ModelsManager &model, Material &material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawObjectTex(ModelsManager &model, Textures &textures, glm::mat4 P, glm::mat4 V, glm::mat4 M);
+
+void drawBirchTree(glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void drawOakTree(glm::mat4 P, glm::mat4 V, glm::mat4 M);
 
 #endif //MODELS_H

@@ -23,8 +23,12 @@ inline TexturesManager lapisOreTexRes;
 inline TexturesManager oakLeavesTexRes;
 inline TexturesManager oakLogSideTexRes;
 inline TexturesManager oakLogTopTexRes;
+inline TexturesManager birchLogTopTexRes;
+inline TexturesManager birchLogSideTexRes;
 inline TexturesManager oakPlanksTexRes;
 inline TexturesManager stoneBlockTexRes;
+inline TexturesManager birchLeavesTexRes;
+inline TexturesManager dirtBlockTexRes;
 // Effects
 inline TexturesManager sepiaEffectTexRes;
 inline TexturesManager sepiaEffectEmissiveTexRes;

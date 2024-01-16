@@ -55,7 +55,7 @@ void renderMenu(GLFWwindow *window) {
 
     // Dibujamos el planeta
     glm::mat4 S = glm::scale(I, glm::vec3(2));
-    drawObjectTex(modelSphere, texturesStoneBlock, P, V, S);
+    drawObjectTex(modelSphere, texturesDirtBlock, P, V, S);
 
     // Efecto texturesSepiaEffect al menu
     glm::mat4 sepiaSize = glm::scale(I, glm::vec3(20));
