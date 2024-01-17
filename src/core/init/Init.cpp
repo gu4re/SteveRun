@@ -41,6 +41,7 @@ void initScene() {
     modelGrassBlock.initModel("resources/models/_blocks/grassBlock.obj");
     modelIronOre.initModel("resources/models/_blocks/ironOre.obj");
     modelLapisOre.initModel("resources/models/_blocks/lapisOre.obj");
+    modelSlab.initModel("resources/models/_blocks/slab.obj");
     // Mobs
     modelCreeper.initModel("resources/models/_mobs/creeper.obj");
     modelMagmacube.initModel("resources/models/_mobs/magmacube.obj");
@@ -73,6 +74,7 @@ void initScene() {
     birchLogSideTexRes.initTexture("resources/textures/_blocks/birchLogSideTexRes.png");
     birchLeavesTexRes.initTexture("resources/textures/_blocks/birchLeavesTexRes.png");
     dirtBlockTexRes.initTexture("resources/textures/_blocks/dirtBlockTexRes.png");
+    orangeBlockTexRes.initTexture("resources/textures/_blocks/orangeBlockTexRes.png");
     // Effects
     sepiaEffectTexRes.initTexture("resources/textures/_effects/sepiaEffectTexRes.png");
     sepiaEffectEmissiveTexRes.initTexture("resources/textures/_effects/sepiaEffectEmissiveTexRes.png");
@@ -88,26 +90,11 @@ void initScene() {
     noEmissiveTexRes.initTexture("resources/textures/noEmissiveTexRes.png");
 
     // Luz ambiental global
-    lightG.ambient = glm::vec3(0.5, 0.5, 0.5);
-
-    // Luces direccionales
-    lightD[0].direction = glm::vec3(0.0, -1.0, 0.0);
-    lightD[0].ambient = glm::vec3(0.1, 0.1, 0.1);
-    lightD[0].diffuse = glm::vec3(0.7, 0.7, 0.7);
-    lightD[0].specular = glm::vec3(0.7, 0.7, 0.7);
-
-    // Luces posicionales
-    lightP[0].position = glm::vec3(0.0, 3.0, 3.0);
-    lightP[0].ambient = glm::vec3(0.2, 0.2, 0.2);
-    lightP[0].diffuse = glm::vec3(0.9, 0.9, 0.9);
-    lightP[0].specular = glm::vec3(0.9, 0.9, 0.9);
-    lightP[0].c0 = 1.00;
-    lightP[0].c1 = 0.22;
-    lightP[0].c2 = 0.20;
+    lightG.ambient = glm::vec3(0.1, 0.1, 0.1);
 
     // Luces focales
-    lightF[0].position = glm::vec3(-2.0, 2.0, 5.0);
-    lightF[0].direction = glm::vec3(2.0, -2.0, -5.0);
+    lightF[0].position = glm::vec3(0, 5.5, 0.0);
+    lightF[0].direction = glm::vec3(0.0, 0.0, 0.0);
     lightF[0].ambient = glm::vec3(0.2, 0.2, 0.2);
     lightF[0].diffuse = glm::vec3(0.9, 0.9, 0.9);
     lightF[0].specular = glm::vec3(0.9, 0.9, 0.9);
@@ -116,13 +103,13 @@ void initScene() {
     lightF[0].c0 = 1.000;
     lightF[0].c1 = 0.090;
     lightF[0].c2 = 0.032;
-    lightF[1].position = glm::vec3(2.0, 2.0, 5.0);
-    lightF[1].direction = glm::vec3(-2.0, -2.0, -5.0);
+    lightF[1].position = glm::vec3(-0.1, 6, 0.0);
+    lightF[1].direction = glm::vec3(-3, -60.0, 2.5);
     lightF[1].ambient = glm::vec3(0.2, 0.2, 0.2);
     lightF[1].diffuse = glm::vec3(0.9, 0.9, 0.9);
     lightF[1].specular = glm::vec3(0.9, 0.9, 0.9);
-    lightF[1].innerCutOff = 5.0;
-    lightF[1].outerCutOff = static_cast<float>(lightF[1].innerCutOff + 1.0);
+    lightF[1].innerCutOff = 30.0;
+    lightF[1].outerCutOff = static_cast<float>(lightF[1].innerCutOff + 5.0);
     lightF[1].c0 = 1.000;
     lightF[1].c1 = 0.090;
     lightF[1].c2 = 0.032;
@@ -211,6 +198,11 @@ void initScene() {
     texturesDirtBlock.emissive = dirtBlockTexRes.getTexture();
     texturesDirtBlock.normal = 0;
     texturesDirtBlock.shininess = 10.0;
+    texturesOrangeBlock.diffuse = orangeBlockTexRes.getTexture();
+    texturesOrangeBlock.specular = orangeBlockTexRes.getTexture();
+    texturesOrangeBlock.emissive = orangeBlockTexRes.getTexture();
+    texturesOrangeBlock.normal = 0;
+    texturesOrangeBlock.shininess = 10.0;
     // Effects
     texturesSepiaEffect.diffuse = sepiaEffectTexRes.getTexture();
     texturesSepiaEffect.specular = sepiaEffectTexRes.getTexture();

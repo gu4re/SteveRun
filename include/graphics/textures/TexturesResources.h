@@ -29,6 +29,7 @@ inline TexturesManager oakPlanksTexRes;
 inline TexturesManager stoneBlockTexRes;
 inline TexturesManager birchLeavesTexRes;
 inline TexturesManager dirtBlockTexRes;
+inline TexturesManager orangeBlockTexRes;
 // Effects
 inline TexturesManager sepiaEffectTexRes;
 inline TexturesManager sepiaEffectEmissiveTexRes;

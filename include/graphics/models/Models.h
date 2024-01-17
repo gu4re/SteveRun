@@ -8,6 +8,7 @@
 #include "ModelsManager.h"
 #include "../shaders/Shaders.h"
 #include "../textures/Textures.h"
+#include "../lights/Lights.h"
 
 // Modelos
 // Blocks
@@ -17,6 +18,7 @@ inline ModelsManager modelGoldOre;
 inline ModelsManager modelGrassBlock;
 inline ModelsManager modelIronOre;
 inline ModelsManager modelLapisOre;
+inline ModelsManager modelSlab;
 // Mobs
 inline ModelsManager modelCreeper;
 inline ModelsManager modelMagmacube;
@@ -30,7 +32,6 @@ inline ModelsManager modelCube;
 void drawObjectMat(ModelsManager &model, Material &material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawObjectTex(ModelsManager &model, Textures &textures, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 
-void drawBirchTree(glm::mat4 P, glm::mat4 V, glm::mat4 M);
-void drawOakTree(glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void drawEnvironment(glm::mat4 P, glm::mat4 V);
 
 #endif //MODELS_H

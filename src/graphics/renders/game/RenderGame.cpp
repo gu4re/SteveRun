@@ -58,11 +58,8 @@ void renderGame(GLFWwindow *window) {
     //Dibujamos obstáculo/enemigo
     renderEnemy(45, P, V);
 
-    drawBirchTree(P, V, I);
-    drawOakTree(P, V, glm::translate(I, glm::vec3(0.0, 0.0, -5.0)));
-
-    glm::mat4 S = glm::scale(I, glm::vec3(2));
-    drawObjectTex(modelSphere, texturesDirtBlock, P, V, S); // dibujamos el planeta
+    // Dibujamos el entorno
+    drawEnvironment(P, V);
 
     // Comparamos los ángulos de rotación del personaje y el enemigo
     std::set<int> rangoPermitido;

@@ -24,6 +24,7 @@ inline Textures texturesOakLogTop;
 inline Textures texturesOakLogSide;
 inline Textures texturesStoneBlock;
 inline Textures texturesDirtBlock;
+inline Textures texturesOrangeBlock;
 // Effects
 inline Textures texturesSepiaEffect;
 // Mobs
