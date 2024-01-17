@@ -43,5 +43,6 @@ inline TexturesManager steveEmissiveTexRes;
 inline TexturesManager steveTexRes;
 // General
 inline TexturesManager noEmissiveTexRes;
+inline TexturesManager gameTitleTexRes;
 
 #endif //TEXTURES_RESOURCES_H

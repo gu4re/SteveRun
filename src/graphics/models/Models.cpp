@@ -182,6 +182,12 @@ void drawEnvironment(glm::mat4 P, glm::mat4 V) {
     drawObjectTex(modelSphere, texturesDirtBlock, P, V, S);
     // Torches
     drawTorch(P, V, glm::translate(I, glm::vec3(-0.1, 4.38, -0.25))*glm::scale(I,glm::vec3(0.16)));
+    drawTorch(P, V, glm::rotate(I, glm::radians(45.0f), glm::vec3(0.0,1.0,0.0))*glm::rotate(I, glm::radians(85.0f), glm::vec3(1.0, 0.0, 0.0))*glm::translate(I, glm::vec3(-0.1, 3.3, -0.25))*glm::scale(I,glm::vec3(0.16)));
+    drawTorch(P, V, glm::rotate(I, glm::radians(-45.0f), glm::vec3(0.0,1.0,0.0))*glm::rotate(I, glm::radians(85.0f), glm::vec3(1.0, 0.0, 0.0))*glm::translate(I, glm::vec3(-0.1, 3.3, -0.25))*glm::scale(I,glm::vec3(0.16)));
+    drawTorch(P, V, glm::rotate(I, glm::radians(45.0f), glm::vec3(0.0,1.0,0.0))*glm::rotate(I, glm::radians(135.0f), glm::vec3(1.0, 0.0, 0.0))*glm::translate(I, glm::vec3(-0.1, 3.3, -0.25))*glm::scale(I,glm::vec3(0.16)));
+    drawTorch(P, V, glm::rotate(I, glm::radians(135.0f), glm::vec3(0.0,1.0,0.0))*glm::rotate(I, glm::radians(135.0f), glm::vec3(1.0, 0.0, 0.0))*glm::translate(I, glm::vec3(-0.1, 3.3, -0.25))*glm::scale(I,glm::vec3(0.16)));
+    drawTorch(P, V, glm::rotate(I, glm::radians(115.0f), glm::vec3(0.0,1.0,0.0))*glm::rotate(I, glm::radians(100.0f), glm::vec3(1.0, 0.0, 0.0))*glm::translate(I, glm::vec3(-0.1, 3.3, -0.25))*glm::scale(I,glm::vec3(0.16)));
+    drawTorch(P, V, glm::rotate(I, glm::radians(145.0f), glm::vec3(0.0,1.0,0.0))*glm::rotate(I, glm::radians(85.0f), glm::vec3(1.0, 0.0, 0.0))*glm::translate(I, glm::vec3(-0.1, 3.3, -0.25))*glm::scale(I,glm::vec3(0.16)));
     // Trees
     drawBirchTree(P, V, glm::rotate(I, glm::radians(45.0f), glm::vec3(0, 1, 0)) *
                         glm::rotate(I, glm::radians(45.0f), glm::vec3(1, 0, 0)) *

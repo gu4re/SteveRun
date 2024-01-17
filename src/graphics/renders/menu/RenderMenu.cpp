@@ -55,6 +55,15 @@ void renderMenu(GLFWwindow *window) {
 
     drawEnvironment(P, V);
 
+    // Dibujamos el título del juego
+    drawObjectTex(modelPlane, texturesGameTitle, P, V, glm::scale(I, glm::vec3(5.0))*glm::rotate(
+            glm::rotate(
+                    glm::translate(I, glm::vec3(0.3, 0.1, 1)),
+                    glm::radians(90.0f), glm::vec3(1, 0, 0)
+            ),
+            glm::radians(-90.0f), glm::vec3(0, 1, 0)
+    ));
+
     // Efecto texturesSepiaEffect al menu
     glm::mat4 sepiaSize = glm::scale(I, glm::vec3(20));
     glm::mat4 sepiaPos = glm::rotate(

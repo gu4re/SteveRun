@@ -32,5 +32,7 @@ inline Textures texturesCreeper;
 inline Textures texturesMagmacube;
 inline Textures texturesSpider;
 inline Textures texturesSteve;
+// General
+inline Textures texturesGameTitle;
 
 #endif //TEXTURES_H

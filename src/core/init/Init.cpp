@@ -88,9 +88,9 @@ void initScene() {
     steveTexRes.initTexture("resources/textures/_mobs/steveTexRes.png");
     // General
     noEmissiveTexRes.initTexture("resources/textures/noEmissiveTexRes.png");
-
+    gameTitleTexRes.initTexture("resources/textures/gameTitleTexRes.png");
     // Luz ambiental global
-    lightG.ambient = glm::vec3(0.1, 0.1, 0.1);
+    lightG.ambient = glm::vec3(0.3, 0.3, 0.3);
 
     // Luces focales
     lightF[0].position = glm::vec3(0, 5.5, 0.0);
@@ -230,6 +230,12 @@ void initScene() {
     texturesSteve.emissive = steveEmissiveTexRes.getTexture();
     texturesSteve.normal = 0;
     texturesSteve.shininess = 10.0;
+    // General
+    texturesGameTitle.diffuse = gameTitleTexRes.getTexture();
+    texturesGameTitle.specular = gameTitleTexRes.getTexture();
+    texturesGameTitle.emissive = gameTitleTexRes.getTexture();
+    texturesGameTitle.normal = 0;
+    texturesGameTitle.shininess = 10.0;
 
 }
 
