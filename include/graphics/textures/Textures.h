@@ -34,5 +34,6 @@ inline Textures texturesSpider;
 inline Textures texturesSteve;
 // General
 inline Textures texturesGameTitle;
+inline Textures texturesGameSubtitle;
 
 #endif //TEXTURES_H

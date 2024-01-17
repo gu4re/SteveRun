@@ -89,6 +89,7 @@ void initScene() {
     // General
     noEmissiveTexRes.initTexture("resources/textures/noEmissiveTexRes.png");
     gameTitleTexRes.initTexture("resources/textures/gameTitleTexRes.png");
+    gameSubtitleTexRes.initTexture("resources/textures/gameSubtitleTexRes.png");
     // Luz ambiental global
     lightG.ambient = glm::vec3(0.3, 0.3, 0.3);
 
@@ -236,6 +237,11 @@ void initScene() {
     texturesGameTitle.emissive = gameTitleTexRes.getTexture();
     texturesGameTitle.normal = 0;
     texturesGameTitle.shininess = 10.0;
+    texturesGameSubtitle.diffuse = gameSubtitleTexRes.getTexture();
+    texturesGameSubtitle.specular = gameSubtitleTexRes.getTexture();
+    texturesGameSubtitle.emissive = gameSubtitleTexRes.getTexture();
+    texturesGameSubtitle.normal = 0;
+    texturesGameSubtitle.shininess = 10.0;
 
 }
 
