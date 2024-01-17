@@ -17,6 +17,10 @@
 #include FT_FREETYPE_H
 #include "../../../include/graphics/models/Models.h"
 #include "../../../include/graphics/lights/Lights.h"
+#include "../features/ToggleSound.h"
+#include <AL/al.h>
+#include <AL/alc.h>
+#include <sndfile.h>
 
 std::tuple<GLFWwindow *, FT_Library, FT_Face>init();
 

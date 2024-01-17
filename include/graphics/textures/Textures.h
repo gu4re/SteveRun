@@ -10,11 +10,8 @@
 // Textures
 // Blocks
 inline Textures texturesDiamondOre;
-inline Textures texturesEmeraldOre;
-inline Textures texturesGoldOre;
 inline Textures texturesGrassBlock;
 inline Textures texturesIronOre;
-inline Textures texturesLapisOre;
 inline Textures texturesOakLeaves;
 inline Textures texturesOakPlanks;
 inline Textures texturesBirchLogTop;
@@ -32,6 +29,7 @@ inline Textures texturesCreeper;
 inline Textures texturesMagmacube;
 inline Textures texturesSpider;
 inline Textures texturesSteve;
+inline Textures texturesPig;
 // General
 inline Textures texturesGameTitle;
 inline Textures texturesGameSubtitle;

@@ -169,25 +169,71 @@ void drawOakTree(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
 }
 
 void drawTorch(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
-    drawWoodLog(texturesOakLogSide, texturesOakLogTop, P, V, M*I);
-    drawWoodLog(texturesOakLogSide, texturesOakLogTop, P, V, M*glm::translate(I, glm::vec3(0.0, 1.0, 0.0)));
-    drawWoodLog(texturesOakLogSide, texturesOakLogTop, P, V, M*glm::translate(I, glm::vec3(0.0, 2.0, 0.0)));
-    drawObjectMat(modelSlab, mluz, P, V, M*glm::translate(I, glm::vec3(0.0, 7.0, 1.5)) * glm::scale(I, glm::vec3(0.5)));
-    drawObjectTex(modelSlab, texturesOrangeBlock, P, V, M*glm::translate(I, glm::vec3(0.0, 7.5, 1.5)) * glm::scale(I, glm::vec3(0.5)));
+    drawWoodLog(texturesOakLogSide, texturesOakLogTop, P, V, M * I);
+    drawWoodLog(texturesOakLogSide, texturesOakLogTop, P, V, M * glm::translate(I, glm::vec3(0.0, 1.0, 0.0)));
+    drawWoodLog(texturesOakLogSide, texturesOakLogTop, P, V, M * glm::translate(I, glm::vec3(0.0, 2.0, 0.0)));
+    drawObjectMat(modelSlab, mluz, P, V,
+                  M * glm::translate(I, glm::vec3(0.0, 7.0, 1.5)) * glm::scale(I, glm::vec3(0.5)));
+    drawObjectTex(modelSlab, texturesOrangeBlock, P, V,
+                  M * glm::translate(I, glm::vec3(0.0, 7.5, 1.5)) * glm::scale(I, glm::vec3(0.5)));
 }
 
 void drawEnvironment(glm::mat4 P, glm::mat4 V) {
     // Planet
     glm::mat4 S = glm::scale(I, glm::vec3(2));
     drawObjectTex(modelSphere, texturesDirtBlock, P, V, S);
+    // Ores
+    drawObjectTex(modelDiamondOre, texturesDiamondOre, P, V,
+                  glm::rotate(I, glm::radians(100.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                  glm::rotate(I, glm::radians(225.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                  glm::translate(I, glm::vec3(0.0, 3.8, 1.0)) *
+                  glm::scale(I, glm::vec3(1)));
+    drawObjectTex(modelIronOre, texturesIronOre, P, V,
+                  glm::rotate(I, glm::radians(245.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                  glm::rotate(I, glm::radians(200.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                  glm::translate(I, glm::vec3(0.0, 3.8, 1.0)) *
+                  glm::scale(I, glm::vec3(1)));
+    // Mobs
+    drawObjectTex(modelPig, texturesPig, P, V, glm::rotate(I, glm::radians(-90.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                                                       glm::rotate(I, glm::radians(-70.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                                                       glm::rotate(I, glm::radians(-55.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                                                       glm::translate(I, glm::vec3(0.0, 4.4, 1.0)) *
+                                                       glm::scale(I, glm::vec3(0.08)));
+    drawObjectTex(modelCreeper, texturesCreeper, P, V, glm::rotate(I, glm::radians(90.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                                                       glm::rotate(I, glm::radians(106.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                                                       glm::rotate(I, glm::radians(75.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                                                       glm::translate(I, glm::vec3(0.0, 3.8, 1.0)) *
+                                                       glm::scale(I, glm::vec3(1)));
+    drawObjectTex(modelSpider, texturesSpider, P, V, glm::rotate(I, glm::radians(-90.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                                                     glm::rotate(I, glm::radians(-50.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                                                     glm::rotate(I, glm::radians(140.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                                                     glm::translate(I, glm::vec3(0.0, 4.2, 1.0)) *
+                                                     glm::scale(I, glm::vec3(0.05)));
+    drawObjectTex(modelMagmacube, texturesMagmacube, P, V,
+                  glm::rotate(I, glm::radians(90.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                  glm::rotate(I, glm::radians(-140.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                  glm::rotate(I, glm::radians(140.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                  glm::translate(I, glm::vec3(0.0, 4.2, 1.0)) *
+                  glm::scale(I, glm::vec3(0.1)));
     // Torches
-    drawTorch(P, V, glm::translate(I, glm::vec3(-0.1, 4.38, -0.25))*glm::scale(I,glm::vec3(0.16)));
-    drawTorch(P, V, glm::rotate(I, glm::radians(45.0f), glm::vec3(0.0,1.0,0.0))*glm::rotate(I, glm::radians(85.0f), glm::vec3(1.0, 0.0, 0.0))*glm::translate(I, glm::vec3(-0.1, 3.3, -0.25))*glm::scale(I,glm::vec3(0.16)));
-    drawTorch(P, V, glm::rotate(I, glm::radians(-45.0f), glm::vec3(0.0,1.0,0.0))*glm::rotate(I, glm::radians(85.0f), glm::vec3(1.0, 0.0, 0.0))*glm::translate(I, glm::vec3(-0.1, 3.3, -0.25))*glm::scale(I,glm::vec3(0.16)));
-    drawTorch(P, V, glm::rotate(I, glm::radians(45.0f), glm::vec3(0.0,1.0,0.0))*glm::rotate(I, glm::radians(135.0f), glm::vec3(1.0, 0.0, 0.0))*glm::translate(I, glm::vec3(-0.1, 3.3, -0.25))*glm::scale(I,glm::vec3(0.16)));
-    drawTorch(P, V, glm::rotate(I, glm::radians(135.0f), glm::vec3(0.0,1.0,0.0))*glm::rotate(I, glm::radians(135.0f), glm::vec3(1.0, 0.0, 0.0))*glm::translate(I, glm::vec3(-0.1, 3.3, -0.25))*glm::scale(I,glm::vec3(0.16)));
-    drawTorch(P, V, glm::rotate(I, glm::radians(115.0f), glm::vec3(0.0,1.0,0.0))*glm::rotate(I, glm::radians(100.0f), glm::vec3(1.0, 0.0, 0.0))*glm::translate(I, glm::vec3(-0.1, 3.3, -0.25))*glm::scale(I,glm::vec3(0.16)));
-    drawTorch(P, V, glm::rotate(I, glm::radians(195.0f), glm::vec3(0.0,1.0,0.0))*glm::rotate(I, glm::radians(85.0f), glm::vec3(1.0, 0.0, 0.0))*glm::translate(I, glm::vec3(-0.1, 3.3, -0.25))*glm::scale(I,glm::vec3(0.16)));
+    drawTorch(P, V, glm::rotate(I, glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                    glm::rotate(I, glm::radians(85.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                    glm::translate(I, glm::vec3(-0.1, 3.3, -0.25)) * glm::scale(I, glm::vec3(0.16)));
+    drawTorch(P, V, glm::rotate(I, glm::radians(-45.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                    glm::rotate(I, glm::radians(85.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                    glm::translate(I, glm::vec3(-0.1, 3.3, -0.25)) * glm::scale(I, glm::vec3(0.16)));
+    drawTorch(P, V, glm::rotate(I, glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                    glm::rotate(I, glm::radians(135.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                    glm::translate(I, glm::vec3(-0.1, 3.3, -0.25)) * glm::scale(I, glm::vec3(0.16)));
+    drawTorch(P, V, glm::rotate(I, glm::radians(135.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                    glm::rotate(I, glm::radians(135.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                    glm::translate(I, glm::vec3(-0.1, 3.3, -0.25)) * glm::scale(I, glm::vec3(0.16)));
+    drawTorch(P, V, glm::rotate(I, glm::radians(115.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                    glm::rotate(I, glm::radians(100.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                    glm::translate(I, glm::vec3(-0.1, 3.3, -0.25)) * glm::scale(I, glm::vec3(0.16)));
+    drawTorch(P, V, glm::rotate(I, glm::radians(195.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                    glm::rotate(I, glm::radians(85.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                    glm::translate(I, glm::vec3(-0.1, 3.3, -0.25)) * glm::scale(I, glm::vec3(0.16)));
     // Trees
     drawBirchTree(P, V, glm::rotate(I, glm::radians(45.0f), glm::vec3(0, 1, 0)) *
                         glm::rotate(I, glm::radians(45.0f), glm::vec3(1, 0, 0)) *
@@ -211,13 +257,13 @@ void drawEnvironment(glm::mat4 P, glm::mat4 V) {
                       glm::rotate(I, glm::radians(60.0f), glm::vec3(0, 0, 1)) *
                       glm::translate(glm::scale(I, glm::vec3(0.5)), glm::vec3(0.0, 3.7, 0.0)));
     drawBirchTree(P, V, glm::rotate(I, glm::radians(-270.0f), glm::vec3(1, 0, 0)) *
-                      glm::rotate(I, glm::radians(-270.0f), glm::vec3(0, 0, 1)) *
-                      glm::rotate(I, glm::radians(0.0f), glm::vec3(1, 0, 0)) *
-                      glm::translate(glm::scale(I, glm::vec3(0.5)), glm::vec3(0.0, 3.7, 0.0)));
-    drawOakTree(P, V, glm::rotate(I, glm::radians(-215.0f), glm::vec3(1, 0, 0)) *
-                        glm::rotate(I, glm::radians(-215.0f), glm::vec3(0, 0, 1)) *
+                        glm::rotate(I, glm::radians(-270.0f), glm::vec3(0, 0, 1)) *
                         glm::rotate(I, glm::radians(0.0f), glm::vec3(1, 0, 0)) *
                         glm::translate(glm::scale(I, glm::vec3(0.5)), glm::vec3(0.0, 3.7, 0.0)));
+    drawOakTree(P, V, glm::rotate(I, glm::radians(-215.0f), glm::vec3(1, 0, 0)) *
+                      glm::rotate(I, glm::radians(-215.0f), glm::vec3(0, 0, 1)) *
+                      glm::rotate(I, glm::radians(0.0f), glm::vec3(1, 0, 0)) *
+                      glm::translate(glm::scale(I, glm::vec3(0.5)), glm::vec3(0.0, 3.7, 0.0)));
     drawOakTree(P, V, glm::rotate(I, glm::radians(-320.0f), glm::vec3(1, 0, 0)) *
                       glm::rotate(I, glm::radians(-320.0f), glm::vec3(0, 0, 1)) *
                       glm::rotate(I, glm::radians(0.0f), glm::vec3(1, 0, 0)) *

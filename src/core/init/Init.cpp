@@ -36,17 +36,15 @@ void initScene() {
     // Modelos
     // Blocks
     modelDiamondOre.initModel("resources/models/_blocks/diamondOre.obj");
-    modelEmeraldOre.initModel("resources/models/_blocks/emeraldOre.obj");
-    modelGoldOre.initModel("resources/models/_blocks/goldOre.obj");
     modelGrassBlock.initModel("resources/models/_blocks/grassBlock.obj");
     modelIronOre.initModel("resources/models/_blocks/ironOre.obj");
-    modelLapisOre.initModel("resources/models/_blocks/lapisOre.obj");
     modelSlab.initModel("resources/models/_blocks/slab.obj");
     // Mobs
     modelCreeper.initModel("resources/models/_mobs/creeper.obj");
     modelMagmacube.initModel("resources/models/_mobs/magmacube.obj");
     modelSpider.initModel("resources/models/_mobs/spider.obj");
     modelSteve.initModel("resources/models/_mobs/steve.obj");
+    modelPig.initModel("resources/models/_mobs/pig.obj");
     // General
     modelSphere.initModel("resources/models/sphere.obj");
     modelPlane.initModel("resources/models/plane.obj");
@@ -54,17 +52,10 @@ void initScene() {
 
     // Imagenes (texturas)
     // Blocks
-    diamondOreEmissiveTexRes.initTexture("resources/textures/_blocks/diamondOreEmissiveTexRes.png");
     diamondOreTexRes.initTexture("resources/textures/_blocks/diamondOreTexRes.png");
-    emeraldOreEmissiveTexRes.initTexture("resources/textures/_blocks/emeraldOreEmissiveTexRes.png");
-    emeraldOreTexRes.initTexture("resources/textures/_blocks/emeraldOreTexRes.png");
-    goldOreEmissiveTexRes.initTexture("resources/textures/_blocks/goldOreEmissiveTexRes.png");
-    goldOreTexRes.initTexture("resources/textures/_blocks/goldOreTexRes.png");
     grassBlockTexRes.initTexture("resources/textures/_blocks/grassBlockTexRes.png");
     ironOreEmissiveTexRes.initTexture("resources/textures/_blocks/ironOreEmissiveTexRes.png");
     ironOreTexRes.initTexture("resources/textures/_blocks/ironOreTexRes.png");
-    lapisOreEmissiveTexRes.initTexture("resources/textures/_blocks/lapisOreEmissiveTexRes.png");
-    lapisOreTexRes.initTexture("resources/textures/_blocks/lapisOreTexRes.png");
     oakLeavesTexRes.initTexture("resources/textures/_blocks/oakLeavesTexRes.png");
     oakLogSideTexRes.initTexture("resources/textures/_blocks/oakLogSideTexRes.png");
     oakLogTopTexRes.initTexture("resources/textures/_blocks/oakLogTopTexRes.png");
@@ -79,13 +70,12 @@ void initScene() {
     sepiaEffectTexRes.initTexture("resources/textures/_effects/sepiaEffectTexRes.png");
     sepiaEffectEmissiveTexRes.initTexture("resources/textures/_effects/sepiaEffectEmissiveTexRes.png");
     // Mobs
-    creeperEmissiveTexRes.initTexture("resources/textures/_mobs/creeperEmissiveTexRes.png");
     creeperTexRes.initTexture("resources/textures/_mobs/creeperTexRes.png");
     magmacubeTexRes.initTexture("resources/textures/_mobs/magmacubeTexRes.png");
-    spiderEmissiveTexRes.initTexture("resources/textures/_mobs/spiderEmissiveTexRes.jpeg");
     spiderTexRes.initTexture("resources/textures/_mobs/spiderTexRes.png");
     steveEmissiveTexRes.initTexture("resources/textures/_mobs/steveEmissiveTexRes.jpeg");
     steveTexRes.initTexture("resources/textures/_mobs/steveTexRes.png");
+    pigTexRes.initTexture("resources/textures/_mobs/pigTexRes.png");
     // General
     noEmissiveTexRes.initTexture("resources/textures/noEmissiveTexRes.png");
     gameTitleTexRes.initTexture("resources/textures/gameTitleTexRes.png");
@@ -126,19 +116,9 @@ void initScene() {
     // Blocks
     texturesDiamondOre.diffuse = diamondOreTexRes.getTexture();
     texturesDiamondOre.specular = diamondOreTexRes.getTexture();
-    texturesDiamondOre.emissive = diamondOreEmissiveTexRes.getTexture();
+    texturesDiamondOre.emissive = diamondOreTexRes.getTexture();
     texturesDiamondOre.normal = 0;
     texturesDiamondOre.shininess = 10.0;
-    texturesEmeraldOre.diffuse = emeraldOreTexRes.getTexture();
-    texturesEmeraldOre.specular = emeraldOreTexRes.getTexture();
-    texturesEmeraldOre.emissive = emeraldOreEmissiveTexRes.getTexture();
-    texturesEmeraldOre.normal = 0;
-    texturesEmeraldOre.shininess = 10.0;
-    texturesGoldOre.diffuse = goldOreTexRes.getTexture();
-    texturesGoldOre.specular = goldOreTexRes.getTexture();
-    texturesGoldOre.emissive = goldOreEmissiveTexRes.getTexture();
-    texturesGoldOre.normal = 0;
-    texturesGoldOre.shininess = 10.0;
     texturesGrassBlock.diffuse = grassBlockTexRes.getTexture();
     texturesGrassBlock.specular = grassBlockTexRes.getTexture();
     texturesGrassBlock.emissive = grassBlockTexRes.getTexture();
@@ -149,11 +129,6 @@ void initScene() {
     texturesIronOre.emissive = ironOreEmissiveTexRes.getTexture();
     texturesIronOre.normal = 0;
     texturesIronOre.shininess = 10.0;
-    texturesLapisOre.diffuse = lapisOreTexRes.getTexture();
-    texturesLapisOre.specular = lapisOreTexRes.getTexture();
-    texturesLapisOre.emissive = lapisOreEmissiveTexRes.getTexture();
-    texturesLapisOre.normal = 0;
-    texturesLapisOre.shininess = 10.0;
     texturesOakLeaves.diffuse = oakLeavesTexRes.getTexture();
     texturesOakLeaves.specular = oakLeavesTexRes.getTexture();
     texturesOakLeaves.emissive = oakLeavesTexRes.getTexture();
@@ -213,7 +188,7 @@ void initScene() {
     // Mobs
     texturesCreeper.diffuse = creeperTexRes.getTexture();
     texturesCreeper.specular = creeperTexRes.getTexture();
-    texturesCreeper.emissive = creeperEmissiveTexRes.getTexture();
+    texturesCreeper.emissive = creeperTexRes.getTexture();
     texturesCreeper.normal = 0;
     texturesCreeper.shininess = 10.0;
     texturesMagmacube.diffuse = magmacubeTexRes.getTexture();
@@ -223,7 +198,7 @@ void initScene() {
     texturesMagmacube.shininess = 10.0;
     texturesSpider.diffuse = spiderTexRes.getTexture();
     texturesSpider.specular = spiderTexRes.getTexture();
-    texturesSpider.emissive = spiderEmissiveTexRes.getTexture();
+    texturesSpider.emissive = spiderTexRes.getTexture();
     texturesSpider.normal = 0;
     texturesSpider.shininess = 10.0;
     texturesSteve.diffuse = steveTexRes.getTexture();
@@ -231,6 +206,11 @@ void initScene() {
     texturesSteve.emissive = steveEmissiveTexRes.getTexture();
     texturesSteve.normal = 0;
     texturesSteve.shininess = 10.0;
+    texturesPig.diffuse = pigTexRes.getTexture();
+    texturesPig.specular = pigTexRes.getTexture();
+    texturesPig.emissive = pigTexRes.getTexture();
+    texturesPig.normal = 0;
+    texturesPig.shininess = 10.0;
     // General
     texturesGameTitle.diffuse = gameTitleTexRes.getTexture();
     texturesGameTitle.specular = gameTitleTexRes.getTexture();
@@ -299,4 +279,49 @@ std::tuple<FT_Library, FT_Face> initFreetype() {
     FT_Library_Version(ft, &major, &minor, &patch);
     std::cout << "FreeType Version: " << major << "." << minor << "." << patch << std::endl;
     return std::make_tuple(ft, face);
+}
+
+// Función para inicializar OpenAL y cargar el archivo de audio
+void initializeOpenAL(ALCdevice** device, ALCcontext** context, ALuint* source, ALuint* buffer) {
+    *device = alcOpenDevice(nullptr);
+    if (!*device) {
+        std::cerr << "Error al abrir el dispositivo de audio" << std::endl;
+        exit(-1);
+    }
+
+    *context = alcCreateContext(*device, nullptr);
+    alcMakeContextCurrent(*context);
+
+    alGenBuffers(1, buffer);
+    alGenSources(1, source);
+
+    // Cargar archivo de audio usando libsndfile
+    SF_INFO sndInfo;
+    SNDFILE* sndFile = sf_open(audioFilePath, SFM_READ, &sndInfo);
+    if (!sndFile) {
+        std::cerr << "Error al abrir el archivo de audio" << std::endl;
+        exit(-1);
+    }
+
+    ALenum format;
+    if (sndInfo.channels == 1) {
+        format = AL_FORMAT_MONO16;
+    } else if (sndInfo.channels == 2) {
+        format = AL_FORMAT_STEREO16;
+    } else {
+        std::cerr << "Número de canales no soportado" << std::endl;
+        sf_close(sndFile);
+        exit(-1);
+    }
+
+    ALsizei size = static_cast<ALsizei>(sndInfo.frames * sndInfo.channels);
+    ALsizei freq = static_cast<ALsizei>(sndInfo.samplerate);
+
+    std::vector<ALshort> samples(size);
+    sf_read_short(sndFile, samples.data(), size);
+    sf_close(sndFile);
+
+    alBufferData(*buffer, format, samples.data(), size * sizeof(ALshort), freq);
+    alSourcei(*source, AL_BUFFER, static_cast<ALint>(*buffer));
+
 }
