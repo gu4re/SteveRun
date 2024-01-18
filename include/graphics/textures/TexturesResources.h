@@ -23,6 +23,9 @@ inline TexturesManager stoneBlockTexRes;
 inline TexturesManager birchLeavesTexRes;
 inline TexturesManager dirtBlockTexRes;
 inline TexturesManager orangeBlockTexRes;
+inline TexturesManager emeraldOreTexRes;
+inline TexturesManager goldOreTexRes;
+inline TexturesManager lapisOreTexRes;
 // Effects
 inline TexturesManager sepiaEffectTexRes;
 inline TexturesManager sepiaEffectEmissiveTexRes;
@@ -30,7 +33,6 @@ inline TexturesManager sepiaEffectEmissiveTexRes;
 inline TexturesManager creeperTexRes;
 inline TexturesManager magmacubeTexRes;
 inline TexturesManager spiderTexRes;
-inline TexturesManager steveEmissiveTexRes;
 inline TexturesManager steveTexRes;
 inline TexturesManager pigTexRes;
 // General

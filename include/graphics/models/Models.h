@@ -16,6 +16,9 @@ inline ModelsManager modelDiamondOre;
 inline ModelsManager modelGrassBlock;
 inline ModelsManager modelIronOre;
 inline ModelsManager modelSlab;
+inline ModelsManager modelEmeraldOre;
+inline ModelsManager modelGoldOre;
+inline ModelsManager modelLapisOre;
 // Mobs
 inline ModelsManager modelCreeper;
 inline ModelsManager modelMagmacube;
@@ -26,6 +29,8 @@ inline ModelsManager modelPig;
 inline ModelsManager modelSphere;
 inline ModelsManager modelPlane;
 inline ModelsManager modelCube;
+
+inline ModelsManager modelsRandomArray[6];
 
 void drawObjectMat(ModelsManager &model, Material &material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawObjectTex(ModelsManager &model, Textures &textures, glm::mat4 P, glm::mat4 V, glm::mat4 M);

@@ -15,9 +15,9 @@ int main() {
 
     while (!glfwWindowShouldClose(window) && isAppActive) {
         if (inMainMenu) {
-            renderMenu(window, SoundDevice, SoundContext, SoundSource, SoundBuffer);
+            renderMenu(window, SoundSource);
         } else {
-            renderGame(window);
+            renderGame(window, SoundSource);
         }
         glfwSwapBuffers(window);
         glfwPollEvents();

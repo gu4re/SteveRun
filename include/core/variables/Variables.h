@@ -22,7 +22,7 @@ inline float alphaY = 0.0;
 
 // Variables globales para las coordenadas del cubo
 inline float cubeX = 0.0f;
-inline float cubeY = 9.0f;
+inline float cubeY = 73.0f;
 inline float cubeZ = 0.0f;
 
 // Variable que indica si el juego está en marcha
@@ -37,6 +37,8 @@ inline bool inMainMenu = true;
 inline bool isSoundActive = true;
 // Variable que controla la finalizacion de la ejecucion
 inline bool isAppActive = true;
+// Variable que nos indica si ya hemos cambiado un enemigo que hemos saltado
+inline bool renderedEnemy[8] = {true, true, true, false, false, false, false, false};
 
 void reset();
 

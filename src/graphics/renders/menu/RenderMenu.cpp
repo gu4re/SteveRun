@@ -5,7 +5,7 @@
 #include "../../../../include/graphics/renders/menu/RenderMenu.h"
 #include "../../../../include/core/variables/Variables.h"
 
-void renderMenu(GLFWwindow *window, ALCdevice* SoundDevice, ALCcontext* SoundContext, ALuint SoundSource, ALuint SoundBuffer) {
+void renderMenu(GLFWwindow *window, ALuint SoundSource) {
     // Configuramos los CallBacks
     glfwSetKeyCallback(window, callbackMenuFunKey);
     glfwSetScrollCallback(window, nullptr);
@@ -15,6 +15,7 @@ void renderMenu(GLFWwindow *window, ALCdevice* SoundDevice, ALCcontext* SoundCon
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    // Controlamos la música
     toggleSound(SoundSource);
 
     // Indicamos los shaders a utilizar
@@ -22,7 +23,7 @@ void renderMenu(GLFWwindow *window, ALCdevice* SoundDevice, ALCcontext* SoundCon
 
     // Matriz P
     float nplane = 0.1;
-    float fplane = 25.0;
+    float fplane = 35.0;
     float aspect = (float) w / (float) h;
     // Custom fovy
     fovy = 45;
@@ -51,9 +52,9 @@ void renderMenu(GLFWwindow *window, ALCdevice* SoundDevice, ALCcontext* SoundCon
     }
     // Cubo
     glm::mat4 T = glm::translate(I, glm::vec3(cubeX, cubeY, cubeZ));
-    glm::mat4 S1 = glm::scale(I, glm::vec3(0.5));
+    glm::mat4 S1 = glm::scale(I, glm::vec3(0.07));
     glm::mat4 R1 = glm::rotate(I, glm::radians(rotP), glm::vec3(1, 0, 0));
-    drawObjectTex(modelCube, texturesStoneBlock, P, V, R1 * S1 * T); // dibujamos el personaje
+    drawObjectTex(modelSteve, texturesSteve, P, V, R1 * S1 * T); // dibujamos el personaje
 
     drawEnvironment(P, V);
 

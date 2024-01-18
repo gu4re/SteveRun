@@ -27,7 +27,7 @@ void callbackGameFunKey(GLFWwindow *window, int key, [[maybe_unused]] int scanco
                 }
                 isJumping = true;
                 gameRunning = true;
-                jump = 2.0f;
+                jump = 15.0f;
                 //std::cout << "Tecla de salto Coordenadas del cubo: (" << cubeX << ", " << cubeY << ", " << cubeZ << ")" << std::endl;
             } else {
                 jump = 0.0f;
@@ -48,6 +48,7 @@ void callbackGameFunKey(GLFWwindow *window, int key, [[maybe_unused]] int scanco
         case GLFW_KEY_ESCAPE:
             if (action == GLFW_PRESS) {
                 inMainMenu = true;
+                gameRunning = false;
             }
             break;
         default:

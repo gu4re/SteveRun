@@ -13,12 +13,11 @@
 #include "../../lights/Lights.h"
 #include <AL/al.h>
 #include <AL/alc.h>
-#include <sndfile.h>
 #include "../../../core/features/ToggleSound.h"
 
 extern void callbackMenuFunKey(GLFWwindow* window, int key, [[maybe_unused]] int scancode, int action,
                                [[maybe_unused]] int mods);
 
-void renderMenu(GLFWwindow* window, ALCdevice* SoundDevice, ALCcontext* SoundContext, ALuint SoundSource, ALuint SoundBuffer);
+void renderMenu(GLFWwindow *window, ALuint SoundSource);
 
 #endif //RENDERMENU_H

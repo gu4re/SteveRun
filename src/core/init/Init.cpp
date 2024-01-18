@@ -42,6 +42,9 @@ void initScene() {
     modelGrassBlock.initModel("resources/models/_blocks/grassBlock.obj");
     modelIronOre.initModel("resources/models/_blocks/ironOre.obj");
     modelSlab.initModel("resources/models/_blocks/slab.obj");
+    modelEmeraldOre.initModel("resources/models/_blocks/emeraldOre.obj");
+    modelGoldOre.initModel("resources/models/_blocks/goldOre.obj");
+    modelLapisOre.initModel("resources/models/_blocks/lapisOre.obj");
     // Mobs
     modelCreeper.initModel("resources/models/_mobs/creeper.obj");
     modelMagmacube.initModel("resources/models/_mobs/magmacube.obj");
@@ -52,7 +55,13 @@ void initScene() {
     modelSphere.initModel("resources/models/sphere.obj");
     modelPlane.initModel("resources/models/plane.obj");
     modelCube.initModel("resources/models/cube.obj");
-
+    // Inicializamos el array random de modelos
+    modelsRandomArray[0] = modelDiamondOre;
+    modelsRandomArray[1] = modelEmeraldOre;
+    modelsRandomArray[2] = modelGoldOre;
+    modelsRandomArray[3] = modelGrassBlock;
+    modelsRandomArray[4] = modelIronOre;
+    modelsRandomArray[5] = modelLapisOre;
     // Imagenes (texturas)
     // Blocks
     diamondOreTexRes.initTexture("resources/textures/_blocks/diamondOreTexRes.png");
@@ -69,6 +78,9 @@ void initScene() {
     birchLeavesTexRes.initTexture("resources/textures/_blocks/birchLeavesTexRes.png");
     dirtBlockTexRes.initTexture("resources/textures/_blocks/dirtBlockTexRes.png");
     orangeBlockTexRes.initTexture("resources/textures/_blocks/orangeBlockTexRes.png");
+    emeraldOreTexRes.initTexture("resources/textures/_blocks/emeraldOreTexRes.png");
+    goldOreTexRes.initTexture("resources/textures/_blocks/goldOreTexRes.png");
+    lapisOreTexRes.initTexture("resources/textures/_blocks/lapisOreTexRes.png");
     // Effects
     sepiaEffectTexRes.initTexture("resources/textures/_effects/sepiaEffectTexRes.png");
     sepiaEffectEmissiveTexRes.initTexture("resources/textures/_effects/sepiaEffectEmissiveTexRes.png");
@@ -76,7 +88,6 @@ void initScene() {
     creeperTexRes.initTexture("resources/textures/_mobs/creeperTexRes.png");
     magmacubeTexRes.initTexture("resources/textures/_mobs/magmacubeTexRes.png");
     spiderTexRes.initTexture("resources/textures/_mobs/spiderTexRes.png");
-    steveEmissiveTexRes.initTexture("resources/textures/_mobs/steveEmissiveTexRes.jpeg");
     steveTexRes.initTexture("resources/textures/_mobs/steveTexRes.png");
     pigTexRes.initTexture("resources/textures/_mobs/pigTexRes.png");
     // General
@@ -182,6 +193,21 @@ void initScene() {
     texturesOrangeBlock.emissive = orangeBlockTexRes.getTexture();
     texturesOrangeBlock.normal = 0;
     texturesOrangeBlock.shininess = 10.0;
+    texturesEmeraldOre.diffuse = emeraldOreTexRes.getTexture();
+    texturesEmeraldOre.specular = emeraldOreTexRes.getTexture();
+    texturesEmeraldOre.emissive = emeraldOreTexRes.getTexture();
+    texturesEmeraldOre.normal = 0;
+    texturesEmeraldOre.shininess = 10.0;
+    texturesGoldOre.diffuse = goldOreTexRes.getTexture();
+    texturesGoldOre.specular = goldOreTexRes.getTexture();
+    texturesGoldOre.emissive = goldOreTexRes.getTexture();
+    texturesGoldOre.normal = 0;
+    texturesGoldOre.shininess = 10.0;
+    texturesLapisOre.diffuse = lapisOreTexRes.getTexture();
+    texturesLapisOre.specular = lapisOreTexRes.getTexture();
+    texturesLapisOre.emissive = lapisOreTexRes.getTexture();
+    texturesLapisOre.normal = 0;
+    texturesLapisOre.shininess = 10.0;
     // Effects
     texturesSepiaEffect.diffuse = sepiaEffectTexRes.getTexture();
     texturesSepiaEffect.specular = sepiaEffectTexRes.getTexture();
@@ -206,7 +232,7 @@ void initScene() {
     texturesSpider.shininess = 10.0;
     texturesSteve.diffuse = steveTexRes.getTexture();
     texturesSteve.specular = steveTexRes.getTexture();
-    texturesSteve.emissive = steveEmissiveTexRes.getTexture();
+    texturesSteve.emissive = steveTexRes.getTexture();
     texturesSteve.normal = 0;
     texturesSteve.shininess = 10.0;
     texturesPig.diffuse = pigTexRes.getTexture();
@@ -225,6 +251,16 @@ void initScene() {
     texturesGameSubtitle.emissive = gameSubtitleTexRes.getTexture();
     texturesGameSubtitle.normal = 0;
     texturesGameSubtitle.shininess = 10.0;
+    // Inicializamos el array random de texturas
+    texturesRandomArray[0] = texturesDiamondOre;
+    texturesRandomArray[1] = texturesEmeraldOre;
+    texturesRandomArray[2] = texturesGoldOre;
+    texturesRandomArray[3] = texturesGrassBlock;
+    texturesRandomArray[4] = texturesIronOre;
+    texturesRandomArray[5] = texturesLapisOre;
+    texturesRandomArray[6] = texturesOakLeaves;
+    texturesRandomArray[7] = texturesOakPlanks;
+    texturesRandomArray[8] = texturesStoneBlock;
 
 }
 

@@ -22,6 +22,9 @@ inline Textures texturesOakLogSide;
 inline Textures texturesStoneBlock;
 inline Textures texturesDirtBlock;
 inline Textures texturesOrangeBlock;
+inline Textures texturesEmeraldOre;
+inline Textures texturesGoldOre;
+inline Textures texturesLapisOre;
 // Effects
 inline Textures texturesSepiaEffect;
 // Mobs
@@ -33,5 +36,7 @@ inline Textures texturesPig;
 // General
 inline Textures texturesGameTitle;
 inline Textures texturesGameSubtitle;
+
+inline Textures texturesRandomArray[9];
 
 #endif //TEXTURES_H

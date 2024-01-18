@@ -10,6 +10,6 @@
 #include "../../models/Models.h"
 #include "../../textures/Textures.h"
 
-void renderEnemy(float angle, glm::mat4 P, glm::mat4 V);
+void renderEnemy(float angle, int randNum, glm::mat4 P, glm::mat4 V);
 
 #endif //RENDERENEMY_H
