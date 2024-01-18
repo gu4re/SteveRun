@@ -40,6 +40,11 @@ void callbackGameFunKey(GLFWwindow *window, int key, [[maybe_unused]] int scanco
                 screenMode(window);
             }
             break;
+        case GLFW_KEY_M:
+            if (action == GLFW_PRESS) {
+                isSoundActive ? isSoundActive = false : isSoundActive = true;
+            }
+            break;
         case GLFW_KEY_ESCAPE:
             if (action == GLFW_PRESS) {
                 inMainMenu = true;

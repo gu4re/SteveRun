@@ -33,8 +33,10 @@ inline bool gameRunning = false;
 inline bool isJumping = false;
 //  Variable que controla si estamos en el menu
 inline bool inMainMenu = true;
-// Ruta a la musica
-inline const char* audioFilePath = "resources/music/c418Venus.wav";
+// Variable que controla la música
+inline bool isSoundActive = true;
+// Variable que controla la finalizacion de la ejecucion
+inline bool isAppActive = true;
 
 void reset();
 

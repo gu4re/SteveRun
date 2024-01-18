@@ -9,14 +9,17 @@ void initGLFW();
 GLFWwindow* initWindow();
 void initGLEW();
 std::tuple<FT_Library, FT_Face> initFreetype();
+std::tuple<ALCdevice*, ALCcontext*, ALuint, ALuint> initOpenAL();
 
-std::tuple<GLFWwindow *, FT_Library, FT_Face> init() {
+std::tuple<GLFWwindow *, FT_Library, FT_Face, ALCdevice*, ALCcontext*, ALuint, ALuint> init() {
     initGLFW();
     GLFWwindow *window = initWindow();
     initGLEW();
     auto [ft, face] = initFreetype();
+    auto [SoundDevice, SoundContext, SoundSource, SoundBuffer] = initOpenAL();
+
     initScene();
-    return std::make_tuple(window, ft, face);
+    return std::make_tuple(window, ft, face, SoundDevice, SoundContext, SoundSource, SoundBuffer);
 }
 
 void initScene() {
@@ -282,22 +285,23 @@ std::tuple<FT_Library, FT_Face> initFreetype() {
 }
 
 // Función para inicializar OpenAL y cargar el archivo de audio
-void initializeOpenAL(ALCdevice** device, ALCcontext** context, ALuint* source, ALuint* buffer) {
-    *device = alcOpenDevice(nullptr);
-    if (!*device) {
+std::tuple<ALCdevice*, ALCcontext*, ALuint, ALuint> initOpenAL() {
+    ALCdevice* device = alcOpenDevice(nullptr);
+    if (!device) {
         std::cerr << "Error al abrir el dispositivo de audio" << std::endl;
         exit(-1);
     }
 
-    *context = alcCreateContext(*device, nullptr);
-    alcMakeContextCurrent(*context);
+    ALCcontext* context = alcCreateContext(device, nullptr);
+    alcMakeContextCurrent(context);
 
-    alGenBuffers(1, buffer);
-    alGenSources(1, source);
+    ALuint source, buffer;
+    alGenBuffers(1, &buffer);
+    alGenSources(1, &source);
 
     // Cargar archivo de audio usando libsndfile
     SF_INFO sndInfo;
-    SNDFILE* sndFile = sf_open(audioFilePath, SFM_READ, &sndInfo);
+    SNDFILE* sndFile = sf_open("resources/music/c418Venus.wav", SFM_READ, &sndInfo);
     if (!sndFile) {
         std::cerr << "Error al abrir el archivo de audio" << std::endl;
         exit(-1);
@@ -314,14 +318,15 @@ void initializeOpenAL(ALCdevice** device, ALCcontext** context, ALuint* source, 
         exit(-1);
     }
 
-    ALsizei size = static_cast<ALsizei>(sndInfo.frames * sndInfo.channels);
-    ALsizei freq = static_cast<ALsizei>(sndInfo.samplerate);
+    auto size = static_cast<ALsizei>(sndInfo.frames * sndInfo.channels);
+    auto freq = static_cast<ALsizei>(sndInfo.samplerate);
 
     std::vector<ALshort> samples(size);
     sf_read_short(sndFile, samples.data(), size);
     sf_close(sndFile);
 
-    alBufferData(*buffer, format, samples.data(), size * sizeof(ALshort), freq);
-    alSourcei(*source, AL_BUFFER, static_cast<ALint>(*buffer));
+    alBufferData(buffer, format, samples.data(), static_cast<ALsizei>(size * sizeof(ALshort)), freq);
+    alSourcei(source, AL_BUFFER, static_cast<ALint>(buffer));
 
+    return std::make_tuple(device, context, source, buffer);
 }

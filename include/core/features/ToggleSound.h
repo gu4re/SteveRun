@@ -5,7 +5,13 @@
 #ifndef TOGGLESOUND_H
 #define TOGGLESOUND_H
 
-// Ruta al archivo de audio
-extern const char* audioFilePath;
+#include <AL/al.h>
+#include <AL/alc.h>
+#include <sndfile.h>
+#include <thread>
+
+extern bool isSoundActive;
+
+void toggleSound(ALuint SoundSource);
 
 #endif //TOGGLESOUND_H

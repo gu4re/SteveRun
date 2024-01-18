@@ -8,23 +8,22 @@
 int main() {
 
     // Inicializa lo necesario
-    auto [window, ft, face] = init();
+    auto [window, FTLibrary, FTFace, SoundDevice, SoundContext, SoundSource, SoundBuffer] = init();
 
     // Callbacks globales para todas las capas de renderizado
     glfwSetFramebufferSizeCallback(window, frameBuffer);
 
-    while (!glfwWindowShouldClose(window)) {
+    while (!glfwWindowShouldClose(window) && isAppActive) {
         if (inMainMenu) {
-            renderMenu(window);
+            renderMenu(window, SoundDevice, SoundContext, SoundSource, SoundBuffer);
         } else {
             renderGame(window);
         }
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-
-    // Destroy everything initialized before
-    destroy(window);
+    // Llama a tu función destroy con los parámetros necesarios
+    destroy(window, FTLibrary, FTFace, SoundDevice, SoundContext, SoundSource, SoundBuffer);
 
     return 0;
 }

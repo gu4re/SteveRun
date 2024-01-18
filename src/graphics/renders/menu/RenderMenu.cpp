@@ -5,7 +5,7 @@
 #include "../../../../include/graphics/renders/menu/RenderMenu.h"
 #include "../../../../include/core/variables/Variables.h"
 
-void renderMenu(GLFWwindow *window) {
+void renderMenu(GLFWwindow *window, ALCdevice* SoundDevice, ALCcontext* SoundContext, ALuint SoundSource, ALuint SoundBuffer) {
     // Configuramos los CallBacks
     glfwSetKeyCallback(window, callbackMenuFunKey);
     glfwSetScrollCallback(window, nullptr);
@@ -14,6 +14,8 @@ void renderMenu(GLFWwindow *window) {
     // Borramos el buffer de color
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    toggleSound(SoundSource);
 
     // Indicamos los shaders a utilizar
     shaders.useShaders();

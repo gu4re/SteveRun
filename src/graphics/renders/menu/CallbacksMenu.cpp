@@ -22,8 +22,14 @@ void callbackMenuFunKey(GLFWwindow *window, int key, [[maybe_unused]] int scanco
             break;
         case GLFW_KEY_ESCAPE:
             if (action == GLFW_PRESS) {
-                exit(0);
+                isAppActive = false;
             }
+            break;
+        case GLFW_KEY_M:
+            if (action == GLFW_PRESS) {
+                isSoundActive ? isSoundActive = false : isSoundActive = true;
+            }
+            break;
         default:
             break;
     }

@@ -9,6 +9,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "../../../core/features/ScreenMode.h"
+#include "../../../core/features/ToggleSound.h"
 
 void callbackMenuFunKey(GLFWwindow* window, int key, [[maybe_unused]] int scancode, int action,
                 [[maybe_unused]] int mods);
