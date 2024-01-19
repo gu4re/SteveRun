@@ -29,7 +29,7 @@ struct Textures {
     float     shininess;
 };
 
-#define NLF 2
+#define NLF 6
 
 uniform Light    ulightG;
 uniform Light    ulightF[NLF];
@@ -45,9 +45,7 @@ in  vec2 vtex;
 
 out vec4 outColor;
 
-vec3 funDirectional(Light light, Material material, vec3 N, vec3 V);
-vec3 funPositional (Light light, Material material, vec3 N, vec3 V);
-vec3 funFocal      (Light light, Material material, vec3 N, vec3 V);
+vec3 funFocal(Light light, Material material, vec3 N, vec3 V);
 
 void main() {
 
@@ -79,71 +77,20 @@ void main() {
 
 }
 
-vec3 funDirectional(Light light, Material material, vec3 N, vec3 V) {
-
-    vec3  L = normalize(-light.direction);
-    vec3  R = normalize(reflect(-L,N));
-
-    float dotLN = dot(L,N);
-    float dotRV = 0.0;
-    if(dotLN<0.0) dotLN = 0.0;
-    else          dotRV = max(dot(R,V), 0.0);
-
-    vec3  ambient  = light.ambient  * material.ambient.rgb;
-    vec3  diffuse  = light.diffuse  * material.diffuse.rgb  * dotLN;
-    vec3  specular = light.specular * material.specular.rgb * pow(dotRV,material.shininess);
-
-    vec3 color = ambient + diffuse + specular;
-
-    return color;
-
-}
-
-vec3 funPositional(Light light, Material material, vec3 N, vec3 V) {
-
-    vec3  L = normalize(light.position - vpos);
-    vec3  R = normalize(reflect(-L,N));
-
-    float dotLN = dot(L,N);
-    float dotRV = 0.0;
-    if(dotLN<0.0) dotLN = 0.0;
-    else          dotRV = max(dot(R,V), 0.0);
-
-    vec3  ambient  = light.ambient  * material.ambient.rgb;
-    vec3  diffuse  = light.diffuse  * material.diffuse.rgb  * dotLN;
-    vec3  specular = light.specular * material.specular.rgb * pow(dotRV,material.shininess);
-
-    float distance    = length(light.position - vpos);
-    float attenuation = 1.0/(light.c0 + light.c1*distance + light.c2*pow(distance,2));
-
-    vec3 color = attenuation*(ambient + diffuse + specular);
-
-    return color;
-
-}
-
 vec3 funFocal(Light light, Material material, vec3 N, vec3 V) {
-
     vec3  L = normalize(light.position - vpos);
     vec3  R = normalize(reflect(-L,N));
-
     float dotLN = dot(L,N);
     float dotRV = 0.0;
     if(dotLN<0.0) dotLN = 0.0;
     else          dotRV = max(dot(R,V), 0.0);
-
     vec3  ambient  = light.ambient  * material.ambient.rgb;
     vec3  diffuse  = light.diffuse  * material.diffuse.rgb  * dotLN;
     vec3  specular = light.specular * material.specular.rgb * pow(dotRV,material.shininess);
-
     float distance    = length(light.position - vpos);
     float attenuation = 1.0/(light.c0 + light.c1*distance + light.c2*pow(distance,2));
-
     vec3  direction   = normalize(-light.direction);
     float intensity   = clamp((light.outerCutOff - dot(L,direction))/(light.outerCutOff - light.innerCutOff), 0.0, 1.0);
-
     vec3 color = attenuation*(ambient + intensity*(diffuse + specular));
-
     return color;
-
 }

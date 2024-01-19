@@ -94,30 +94,61 @@ void initScene() {
     noEmissiveTexRes.initTexture("resources/textures/noEmissiveTexRes.png");
     gameTitleTexRes.initTexture("resources/textures/gameTitleTexRes.png");
     gameSubtitleTexRes.initTexture("resources/textures/gameSubtitleTexRes.png");
-    // Luz ambiental global
-    lightG.ambient = glm::vec3(0.3, 0.3, 0.3);
 
-    // Luces focales
-    lightF[0].position = glm::vec3(0, 5.5, 0.0);
-    lightF[0].direction = glm::vec3(0.0, 0.0, 0.0);
-    lightF[0].ambient = glm::vec3(0.2, 0.2, 0.2);
-    lightF[0].diffuse = glm::vec3(0.9, 0.9, 0.9);
-    lightF[0].specular = glm::vec3(0.9, 0.9, 0.9);
-    lightF[0].innerCutOff = 10.0;
-    lightF[0].outerCutOff = static_cast<float>(lightF[0].innerCutOff + 5.0);
-    lightF[0].c0 = 1.000;
-    lightF[0].c1 = 0.090;
-    lightF[0].c2 = 0.032;
-    lightF[1].position = glm::vec3(-0.1, 6, 0.0);
-    lightF[1].direction = glm::vec3(-3, -60.0, 2.5);
-    lightF[1].ambient = glm::vec3(0.2, 0.2, 0.2);
-    lightF[1].diffuse = glm::vec3(0.9, 0.9, 0.9);
-    lightF[1].specular = glm::vec3(0.9, 0.9, 0.9);
-    lightF[1].innerCutOff = 30.0;
-    lightF[1].outerCutOff = static_cast<float>(lightF[1].innerCutOff + 5.0);
-    lightF[1].c0 = 1.000;
-    lightF[1].c1 = 0.090;
-    lightF[1].c2 = 0.032;
+    // Luz ambiental global
+    lightG.ambient = glm::vec3(0.9, 0.9, 0.9);
+
+    // Luces posicionales
+    for(auto & i : lightF) {
+        // Luces posicionales
+        i.position = glm::vec3(-0.1, 5.3, -0.25);
+        i.direction = glm::vec3(0, -60.0, 2.5);
+        i.ambient   = glm::vec3( 0.2, 0.2, 0.2);
+        i.diffuse   = glm::vec3( 0.9, 0.9, 0.9);
+        i.specular  = glm::vec3( 0.9, 0.9, 0.9);
+        i.innerCutOff = 40.0;
+        i.outerCutOff = static_cast<float>(lightF[0].innerCutOff + 3.0);
+        i.c0        = 1.000;
+        i.c1        = 0.090;
+        i.c2        = 0.032;
+    }
+    // Posiciones de las luces de las antorchas
+    lightF[0].position = glm::rotate(I, glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                         glm::rotate(I, glm::radians(85.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                         glm::vec4(lightF[0].position, 1);
+    lightF[0].direction = glm::rotate(I, glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                          glm::rotate(I, glm::radians(85.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                          glm::vec4(lightF[0].direction, 1);
+    lightF[1].position = glm::rotate(I, glm::radians(-45.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                         glm::rotate(I, glm::radians(85.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                         glm::vec4(lightF[1].position, 1);
+    lightF[1].direction = glm::rotate(I, glm::radians(-45.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                          glm::rotate(I, glm::radians(85.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                          glm::vec4(lightF[1].direction, 1);
+    lightF[2].position = glm::rotate(I, glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                         glm::rotate(I, glm::radians(135.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                         glm::vec4(lightF[2].position, 1);
+    lightF[2].direction = glm::rotate(I, glm::radians(45.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                          glm::rotate(I, glm::radians(135.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                          glm::vec4(lightF[2].direction, 1);
+    lightF[3].position = glm::rotate(I, glm::radians(135.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                         glm::rotate(I, glm::radians(135.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                         glm::vec4(lightF[3].position, 1);
+    lightF[3].direction = glm::rotate(I, glm::radians(135.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                          glm::rotate(I, glm::radians(135.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                          glm::vec4(lightF[3].direction, 1);
+    lightF[4].position = glm::rotate(I, glm::radians(115.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                         glm::rotate(I, glm::radians(100.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                         glm::vec4(lightF[4].position, 1);
+    lightF[4].direction = glm::rotate(I, glm::radians(115.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                          glm::rotate(I, glm::radians(100.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                          glm::vec4(lightF[4].direction, 1);
+    lightF[5].position = glm::rotate(I, glm::radians(195.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                         glm::rotate(I, glm::radians(85.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                         glm::vec4(lightF[5].position, 1);
+    lightF[5].direction = glm::rotate(I, glm::radians(195.0f), glm::vec3(0.0, 1.0, 0.0)) *
+                          glm::rotate(I, glm::radians(85.0f), glm::vec3(1.0, 0.0, 0.0)) *
+                          glm::vec4(lightF[5].direction, 1);
 
     // Materiales
     mluz.ambient = glm::vec4(0.0, 0.0, 0.0, 1.0);

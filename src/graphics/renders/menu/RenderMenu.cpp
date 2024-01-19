@@ -37,14 +37,14 @@ void renderMenu(GLFWwindow *window, ALuint SoundSource) {
     shaders.setVec3("ueye", eye);
 
     // Fijamos las luces
-    setLights(P, V);
+    setLights();
 
     // Dibujamos el personaje
     // Control de la rotacion automatica del personaje
     auto currentTime = glfwGetTime();
     double deltaTime = currentTime - last_timer;
     // Check if the threshold is passed
-    if (deltaTime >= 0.019) {
+    if (deltaTime >= 0.030) {
         last_timer = currentTime;
         rotP += 2.0;
         // Ensuring that the angle is always less than 360º

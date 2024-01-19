@@ -4,9 +4,8 @@
 
 #include "../../../include/graphics/lights/Lights.h"
 
-void setLights(glm::mat4 P, glm::mat4 V) {
-
+void setLights() {
+    // Inyectamos luz de ambiente
     shaders.setLight("ulightG", lightG);
     for (int i = 0; i < NLF; i++) shaders.setLight("ulightF[" + toString(i) + "]", lightF[i]);
-
 }

@@ -9,16 +9,12 @@
 #include "../models/Models.h"
 #include "../shaders/Shaders.h"
 
-#define   NLD 1
-#define   NLP 1
-#define   NLF 2
+#define   NLF 6
 
 inline Light lightG;
-inline Light lightD[NLD];
-inline Light lightP[NLP];
 inline Light lightF[NLF];
 inline Material mluz;
 
-void setLights(glm::mat4 P, glm::mat4 V);
+void setLights();
 
 #endif //LIGHTS_H
