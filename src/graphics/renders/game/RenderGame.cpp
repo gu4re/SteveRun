@@ -93,56 +93,56 @@ void renderGame(GLFWwindow *window, ALuint SoundSource) {
             std::uniform_int_distribution<int> uniformIntDistribution(0, 8);
             textureNumber[3] = uniformIntDistribution(gen);
             renderedEnemy[2] = true;
-            renderedEnemy[7] = false;
+            renderedEnemy[5] = false;
             break;
         }
         case 66: { // rotP nunca será impar porque avanza de 2 en 2
             std::uniform_int_distribution<int> uniformIntDistribution(0, 8);
             textureNumber[4] = uniformIntDistribution(gen);
             renderedEnemy[3] = true;
-            renderedEnemy[0] = false;
+            renderedEnemy[6] = false;
             break;
         }
         case 110: {
             std::uniform_int_distribution<int> uniformIntDistribution(0, 8);
             textureNumber[5] = uniformIntDistribution(gen);
             renderedEnemy[4] = true;
-            renderedEnemy[1] = false;
+            renderedEnemy[7] = false;
             break;
         }
         case 156: {
             std::uniform_int_distribution<int> uniformIntDistribution(0, 8);
             textureNumber[6] = uniformIntDistribution(gen);
             renderedEnemy[5] = true;
-            renderedEnemy[2] = false;
+            renderedEnemy[0] = false;
             break;
         }
         case 200: {
             std::uniform_int_distribution<int> uniformIntDistribution(0, 8);
             textureNumber[7] = uniformIntDistribution(gen);
             renderedEnemy[6] = true;
-            renderedEnemy[3] = false;
+            renderedEnemy[1] = false;
             break;
         }
         case 246: {
             std::uniform_int_distribution<int> uniformIntDistribution(0, 8);
             textureNumber[0] = uniformIntDistribution(gen);
             renderedEnemy[7] = true;
-            renderedEnemy[4] = false;
+            renderedEnemy[2] = false;
             break;
         }
         case 290: {
             std::uniform_int_distribution<int> uniformIntDistribution(0, 8);
             textureNumber[1] = uniformIntDistribution(gen);
             renderedEnemy[0] = true;
-            renderedEnemy[5] = false;
+            renderedEnemy[3] = false;
             break;
         }
         case 336: {
             std::uniform_int_distribution<int> uniformIntDistribution(0, 8);
             textureNumber[2] = uniformIntDistribution(gen);
             renderedEnemy[1] = true;
-            renderedEnemy[6] = false;
+            renderedEnemy[4] = false;
             break;
         }
     }

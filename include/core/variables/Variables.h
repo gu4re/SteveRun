@@ -38,7 +38,7 @@ inline bool isSoundActive = true;
 // Variable que controla la finalizacion de la ejecucion
 inline bool isAppActive = true;
 // Variable que nos indica si ya hemos cambiado un enemigo que hemos saltado
-inline bool renderedEnemy[8] = {true, true, true, false, false, false, false, false};
+inline bool renderedEnemy[8] = {true, true, true, true, false, false, false, false};
 
 void reset();
 
