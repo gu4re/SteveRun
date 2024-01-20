@@ -10,10 +10,8 @@
 #include <AL/al.h>
 #include <AL/alc.h>
 #include <sndfile.h>
-#include <ft2build.h>
-#include FT_FREETYPE_H
 #include <thread>
 
-void destroy(GLFWwindow* window, FT_Library FTLibrary, FT_Face FTFace, ALCdevice* SoundDevice, ALCcontext* SoundContext, ALuint SoundSource, ALuint SoundBuffer);
+void destroy(GLFWwindow* window, ALCdevice* SoundDevice, ALCcontext* SoundContext, ALuint SoundSource, ALuint SoundBuffer);
 
 #endif //DESTROY_H

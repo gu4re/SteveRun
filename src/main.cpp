@@ -8,7 +8,7 @@
 int main() {
 
     // Inicializa lo necesario
-    auto [window, FTLibrary, FTFace, SoundDevice, SoundContext, SoundSource, SoundBuffer] = init();
+    auto [window, SoundDevice, SoundContext, SoundSource, SoundBuffer] = init();
 
     // Callbacks globales para todas las capas de renderizado
     glfwSetFramebufferSizeCallback(window, frameBuffer);
@@ -23,7 +23,7 @@ int main() {
         glfwPollEvents();
     }
     // Llama a tu función destroy con los parámetros necesarios
-    destroy(window, FTLibrary, FTFace, SoundDevice, SoundContext, SoundSource, SoundBuffer);
+    destroy(window, SoundDevice, SoundContext, SoundSource, SoundBuffer);
 
     return 0;
 }

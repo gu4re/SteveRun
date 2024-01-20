@@ -8,18 +8,16 @@ void initScene();
 void initGLFW();
 GLFWwindow* initWindow();
 void initGLEW();
-std::tuple<FT_Library, FT_Face> initFreetype();
 std::tuple<ALCdevice*, ALCcontext*, ALuint, ALuint> initOpenAL();
 
-std::tuple<GLFWwindow *, FT_Library, FT_Face, ALCdevice*, ALCcontext*, ALuint, ALuint> init() {
+std::tuple<GLFWwindow *, ALCdevice*, ALCcontext*, ALuint, ALuint> init() {
     initGLFW();
     GLFWwindow *window = initWindow();
     initGLEW();
-    auto [ft, face] = initFreetype();
     auto [SoundDevice, SoundContext, SoundSource, SoundBuffer] = initOpenAL();
 
     initScene();
-    return std::make_tuple(window, ft, face, SoundDevice, SoundContext, SoundSource, SoundBuffer);
+    return std::make_tuple(window, SoundDevice, SoundContext, SoundSource, SoundBuffer);
 }
 
 void initScene() {
@@ -328,27 +326,6 @@ void initGLEW() {
     std::cout << "Status: Using GLEW " << glewGetString(GLEW_VERSION) << std::endl;
     const GLubyte *oglVersion = glGetString(GL_VERSION);
     std::cout << "This system supports OpenGL Version: " << oglVersion << std::endl;
-}
-
-std::tuple<FT_Library, FT_Face> initFreetype() {
-    FT_Library ft;
-    if (FT_Init_FreeType(&ft))
-    {
-        std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
-        exit(-1);
-    }
-
-    FT_Face face;
-    if (FT_New_Face(ft, "resources/fonts/minecraftfont.otf", 0, &face))
-    {
-        std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
-        exit(-1);
-    }
-
-    FT_Int major, minor, patch;
-    FT_Library_Version(ft, &major, &minor, &patch);
-    std::cout << "FreeType Version: " << major << "." << minor << "." << patch << std::endl;
-    return std::make_tuple(ft, face);
 }
 
 // Función para inicializar OpenAL y cargar el archivo de audio
