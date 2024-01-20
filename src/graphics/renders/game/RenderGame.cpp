@@ -66,11 +66,12 @@ void renderGame(GLFWwindow *window, ALuint SoundSource) {
             rotP = static_cast<float>(fmod(rotP, 360.0));
         }
     }
-    glm::mat4 T = glm::translate(I, glm::vec3(cubeX, cubeY, cubeZ));
-    glm::mat4 Salto = glm::translate(I, glm::vec3(cubeX, jump, cubeZ));
+    // Dibujamos el personaje
+    glm::mat4 T = glm::translate(I, glm::vec3(steveX, steveY, steveZ));
+    glm::mat4 Salto = glm::translate(I, glm::vec3(steveX, jump, steveZ));
     glm::mat4 S1 = glm::scale(I, glm::vec3(0.07));
     glm::mat4 R1 = glm::rotate(I, glm::radians(rotP), glm::vec3(1, 0, 0));
-    drawObjectTex(modelSteve, texturesSteve, P, V, R1 * S1 * Salto * T);// dibujamos el personaje
+    drawObjectTex(modelSteve, texturesSteve, P, V, R1 * S1 * Salto * T);
 
     //Dibujamos obstáculo/enemigo
     for(int i = 0; i <=7; i++) {

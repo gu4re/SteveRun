@@ -5,9 +5,9 @@
 #include "../../../include/core/variables/Variables.h"
 
 void reset() {
-    cubeX = 0.0;
-    cubeZ = 0.0;
-    cubeY = 73.0;
+    steveX = 0.0;
+    steveZ = 0.0;
+    steveY = 73.0;
     rotP = 0.0;
     renderedEnemy[0] = true;
     renderedEnemy[1] = true;

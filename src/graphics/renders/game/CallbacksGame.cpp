@@ -12,7 +12,7 @@ void callbackGameFunKey(GLFWwindow *window, int key, [[maybe_unused]] int scanco
         case GLFW_KEY_UP:
             rotP += 5.0f;
             //Imprime las coordenadas del cubo
-            //std::cout << "Tecla de flecha arriba - Coordenadas del cubo: (" << cubeX << ", " << cubeY << ", " << cubeZ << ")" << std::endl;
+            //std::cout << "Tecla de flecha arriba - Coordenadas del cubo: (" << steveX << ", " << steveY << ", " << steveZ << ")" << std::endl;
             break;
         case GLFW_KEY_R:
             if (action == GLFW_PRESS) {
@@ -28,7 +28,7 @@ void callbackGameFunKey(GLFWwindow *window, int key, [[maybe_unused]] int scanco
                 isJumping = true;
                 gameRunning = true;
                 jump = 15.0f;
-                //std::cout << "Tecla de salto Coordenadas del cubo: (" << cubeX << ", " << cubeY << ", " << cubeZ << ")" << std::endl;
+                //std::cout << "Tecla de salto Coordenadas del cubo: (" << steveX << ", " << steveY << ", " << steveZ << ")" << std::endl;
             } else {
                 jump = 0.0f;
                 isJumping = false;

@@ -50,8 +50,8 @@ void renderMenu(GLFWwindow *window, ALuint SoundSource) {
         // Ensuring that the angle is always less than 360º
         rotP = static_cast<float>(fmod(rotP, 360.0));
     }
-    // Cubo
-    glm::mat4 T = glm::translate(I, glm::vec3(cubeX, cubeY, cubeZ));
+    // Steve
+    glm::mat4 T = glm::translate(I, glm::vec3(steveX, steveY, steveZ));
     glm::mat4 S1 = glm::scale(I, glm::vec3(0.07));
     glm::mat4 R1 = glm::rotate(I, glm::radians(rotP), glm::vec3(1, 0, 0));
     drawObjectTex(modelSteve, texturesSteve, P, V, R1 * S1 * T); // dibujamos el personaje

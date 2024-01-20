@@ -20,10 +20,10 @@ inline float fovy = 60.0;
 inline float alphaX = 0.0;
 inline float alphaY = 0.0;
 
-// Variables globales para las coordenadas del cubo
-inline float cubeX = 0.0f;
-inline float cubeY = 73.0f;
-inline float cubeZ = 0.0f;
+// Variables globales para las coordenadas del steve
+inline float steveX = 0.0f;
+inline float steveY = 73.0f;
+inline float steveZ = 0.0f;
 
 // Variable que indica si el juego está en marcha
 inline bool gameRunning = false;
