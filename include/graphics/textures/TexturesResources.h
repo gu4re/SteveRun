@@ -9,34 +9,35 @@
 
 // Imagenes (texturas)
 // Blocks
-inline TexturesManager diamondOreEmissiveTexRes;
 inline TexturesManager diamondOreTexRes;
-inline TexturesManager emeraldOreEmissiveTexRes;
-inline TexturesManager emeraldOreTexRes;
-inline TexturesManager goldOreEmissiveTexRes;
-inline TexturesManager goldOreTexRes;
 inline TexturesManager grassBlockTexRes;
 inline TexturesManager ironOreEmissiveTexRes;
 inline TexturesManager ironOreTexRes;
-inline TexturesManager lapisOreEmissiveTexRes;
-inline TexturesManager lapisOreTexRes;
 inline TexturesManager oakLeavesTexRes;
 inline TexturesManager oakLogSideTexRes;
 inline TexturesManager oakLogTopTexRes;
+inline TexturesManager birchLogTopTexRes;
+inline TexturesManager birchLogSideTexRes;
 inline TexturesManager oakPlanksTexRes;
 inline TexturesManager stoneBlockTexRes;
+inline TexturesManager birchLeavesTexRes;
+inline TexturesManager dirtBlockTexRes;
+inline TexturesManager orangeBlockTexRes;
+inline TexturesManager emeraldOreTexRes;
+inline TexturesManager goldOreTexRes;
+inline TexturesManager lapisOreTexRes;
 // Effects
 inline TexturesManager sepiaEffectTexRes;
 inline TexturesManager sepiaEffectEmissiveTexRes;
 // Mobs
-inline TexturesManager creeperEmissiveTexRes;
 inline TexturesManager creeperTexRes;
 inline TexturesManager magmacubeTexRes;
-inline TexturesManager spiderEmissiveTexRes;
 inline TexturesManager spiderTexRes;
-inline TexturesManager steveEmissiveTexRes;
 inline TexturesManager steveTexRes;
+inline TexturesManager pigTexRes;
 // General
 inline TexturesManager noEmissiveTexRes;
+inline TexturesManager gameTitleTexRes;
+inline TexturesManager gameSubtitleTexRes;
 
 #endif //TEXTURES_RESOURCES_H

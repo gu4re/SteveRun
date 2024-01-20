@@ -10,14 +10,21 @@
 // Textures
 // Blocks
 inline Textures texturesDiamondOre;
-inline Textures texturesEmeraldOre;
-inline Textures texturesGoldOre;
 inline Textures texturesGrassBlock;
 inline Textures texturesIronOre;
-inline Textures texturesLapisOre;
 inline Textures texturesOakLeaves;
 inline Textures texturesOakPlanks;
+inline Textures texturesBirchLogTop;
+inline Textures texturesBirchLogSide;
+inline Textures texturesBirchLeaves;
+inline Textures texturesOakLogTop;
+inline Textures texturesOakLogSide;
 inline Textures texturesStoneBlock;
+inline Textures texturesDirtBlock;
+inline Textures texturesOrangeBlock;
+inline Textures texturesEmeraldOre;
+inline Textures texturesGoldOre;
+inline Textures texturesLapisOre;
 // Effects
 inline Textures texturesSepiaEffect;
 // Mobs
@@ -25,5 +32,11 @@ inline Textures texturesCreeper;
 inline Textures texturesMagmacube;
 inline Textures texturesSpider;
 inline Textures texturesSteve;
+inline Textures texturesPig;
+// General
+inline Textures texturesGameTitle;
+inline Textures texturesGameSubtitle;
+
+inline Textures texturesRandomArray[9];
 
 #endif //TEXTURES_H

@@ -20,10 +20,10 @@ inline float fovy = 60.0;
 inline float alphaX = 0.0;
 inline float alphaY = 0.0;
 
-// Variables globales para las coordenadas del cubo
-inline float cubeX = 0.0f;
-inline float cubeY = 9.0f;
-inline float cubeZ = 0.0f;
+// Variables globales para las coordenadas del steve
+inline float steveX = 0.0f;
+inline float steveY = 73.0f;
+inline float steveZ = 0.0f;
 
 // Variable que indica si el juego está en marcha
 inline bool gameRunning = false;
@@ -33,6 +33,12 @@ inline bool gameRunning = false;
 inline bool isJumping = false;
 //  Variable que controla si estamos en el menu
 inline bool inMainMenu = true;
+// Variable que controla la música
+inline bool isSoundActive = true;
+// Variable que controla la finalizacion de la ejecucion
+inline bool isAppActive = true;
+// Variable que nos indica si ya hemos cambiado un enemigo que hemos saltado
+inline bool renderedEnemy[8] = {true, true, true, false, false, false, false, false};
 
 void reset();
 

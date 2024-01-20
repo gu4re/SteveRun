@@ -11,10 +11,13 @@
 #include "../../models/Models.h"
 #include "../../textures/Textures.h"
 #include "../../lights/Lights.h"
+#include <AL/al.h>
+#include <AL/alc.h>
+#include "../../../core/features/ToggleSound.h"
 
 extern void callbackMenuFunKey(GLFWwindow* window, int key, [[maybe_unused]] int scancode, int action,
                                [[maybe_unused]] int mods);
 
-void renderMenu(GLFWwindow* window);
+void renderMenu(GLFWwindow *window, ALuint SoundSource);
 
 #endif //RENDERMENU_H
